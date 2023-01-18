@@ -23,6 +23,8 @@
 		4D8D744F2977E91400CC3F46 /* KakaoAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D744E2977E91400CC3F46 /* KakaoAuthManager.swift */; };
 		4D8D74522977E9B600CC3F46 /* KakaoAuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D74512977E9B600CC3F46 /* KakaoAuthError.swift */; };
 		4D8D74562977F2E900CC3F46 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D74552977F2E900CC3F46 /* LoginViewModel.swift */; };
+		4D8D745829780C9E00CC3F46 /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D745729780C9E00CC3F46 /* FirebaseAuthManager.swift */; };
+		4D8D745A29780CD300CC3F46 /* FirebaseAuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D745929780CD300CC3F46 /* FirebaseAuthError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		4D8D744E2977E91400CC3F46 /* KakaoAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthManager.swift; sourceTree = "<group>"; };
 		4D8D74512977E9B600CC3F46 /* KakaoAuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthError.swift; sourceTree = "<group>"; };
 		4D8D74552977F2E900CC3F46 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		4D8D745729780C9E00CC3F46 /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
+		4D8D745929780CD300CC3F46 /* FirebaseAuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				4D8D744E2977E91400CC3F46 /* KakaoAuthManager.swift */,
+				4D8D745729780C9E00CC3F46 /* FirebaseAuthManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -109,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				4D8D74512977E9B600CC3F46 /* KakaoAuthError.swift */,
+				4D8D745929780CD300CC3F46 /* FirebaseAuthError.swift */,
 			);
 			path = Error;
 			sourceTree = "<group>";
@@ -214,8 +220,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D8D745829780C9E00CC3F46 /* FirebaseAuthManager.swift in Sources */,
 				4D8D744F2977E91400CC3F46 /* KakaoAuthManager.swift in Sources */,
 				4D8D742D2977D56F00CC3F46 /* LoginView.swift in Sources */,
+				4D8D745A29780CD300CC3F46 /* FirebaseAuthError.swift in Sources */,
 				4D8D74522977E9B600CC3F46 /* KakaoAuthError.swift in Sources */,
 				4D8D742B2977D56F00CC3F46 /* SanchesChatApp.swift in Sources */,
 				4D8D74562977F2E900CC3F46 /* LoginViewModel.swift in Sources */,

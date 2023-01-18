@@ -9,12 +9,13 @@ import Foundation
 
 class LoginViewModel: ObservableObject {
   private let kakaoAuthManager = KakaoAuthManager()
+  private let fireBaseAuthManager = FirebaseAuthManager()
   
   func kakaoLogin() {
     kakaoAuthManager.getKakaoToken { result in
       switch result {
       case .success(let data):
-        print(data)
+        self.fireBaseAuthManager.signInToFirebaseWithToken(accessToken: data.accessToken)
       case .failure(let error):
         debugPrint(error.errorDescription)
       }
