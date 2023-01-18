@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 struct SanchesChatApp: App {
@@ -14,4 +15,8 @@ struct SanchesChatApp: App {
             ContentView()
         }
     }
+  
+  private func initFirebaseSDK() {
+    FirebaseApp.configure()
+  }
 }
