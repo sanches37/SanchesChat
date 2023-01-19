@@ -16,7 +16,7 @@ enum KakaoAuthError: Error, LocalizedError {
     case .unknown(description: let description):
       return "에러: \(description)"
     case .tokenLookupFailed:
-      return "전달 받을 데이터가 없습니다."
+      return "토큰을 변환하지 못했습니다."
     }
   }
 }

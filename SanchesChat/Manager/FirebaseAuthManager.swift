@@ -10,18 +10,28 @@ import FirebaseAuth
 
 class FirebaseAuthManager {
   private lazy var functions = Functions.functions(region: "asia-northeast3")
-  private let path = "kakaoToken"
+  private let kakaoCustomTokenPath = "kakaoToken"
   
-  func signInToFirebaseWithToken(accessToken: String) {
-    getKakaoCustomToken(accessToken: accessToken) { result in
+  func signInToFirebaseWithAppleToken(
+    token: String,
+    nonce: String
+  ) {
+    let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com", idToken: token, rawNonce: nonce)
+    Auth.auth().signIn(with: firebaseCredential) { result, error in
+      try? self.checkFirebaseLogin(result: result, error: error)
+    }
+  }
+  
+  func signInToFirebaseWithCustomToken(
+    accessToken: String) {
+    getCustomToken(
+      accessToken: accessToken,
+      path: kakaoCustomTokenPath
+    ) { result in
       switch result {
       case .success(let customToken):
         Auth.auth().signIn(withCustomToken: customToken) { result, error in
-          do {
-            try self.checkFirebaseLogin(result: result, error: error)
-          } catch {
-            debugPrint(error.localizedDescription)
-          }
+          try? self.checkFirebaseLogin(result: result, error: error)
         }
       case .failure(let error):
         debugPrint(error.errorDescription)
@@ -29,10 +39,11 @@ class FirebaseAuthManager {
     }
   }
   
-  private func getKakaoCustomToken(
+  private func getCustomToken(
     accessToken: String,
+    path: String,
     completion: @escaping (Result<String, FirebaseAuthError>) -> Void) {
-      functions.httpsCallable(path)
+      functions.httpsCallable(kakaoCustomTokenPath)
         .call(["accessToken": accessToken]) { result, error in
           if let error = error {
             completion(.failure(.receiveJWTFailed(description: error.localizedDescription)))
