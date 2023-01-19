@@ -18,26 +18,34 @@ class FirebaseAuthManager {
   ) {
     let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com", idToken: token, rawNonce: nonce)
     Auth.auth().signIn(with: firebaseCredential) { result, error in
-      try? self.checkFirebaseLogin(result: result, error: error)
+      do {
+        try self.checkFirebaseLogin(result: result, error: error)
+      } catch {
+        debugPrint(error)
+      }
     }
   }
   
   func signInToFirebaseWithCustomToken(
     accessToken: String) {
-    getCustomToken(
-      accessToken: accessToken,
-      path: kakaoCustomTokenPath
-    ) { result in
-      switch result {
-      case .success(let customToken):
-        Auth.auth().signIn(withCustomToken: customToken) { result, error in
-          try? self.checkFirebaseLogin(result: result, error: error)
+      getCustomToken(
+        accessToken: accessToken,
+        path: kakaoCustomTokenPath
+      ) { result in
+        switch result {
+        case .success(let customToken):
+          Auth.auth().signIn(withCustomToken: customToken) { result, error in
+            do {
+              try self.checkFirebaseLogin(result: result, error: error)
+            } catch {
+              debugPrint(error)
+            }
+          }
+        case .failure(let error):
+          debugPrint(error.errorDescription)
         }
-      case .failure(let error):
-        debugPrint(error.errorDescription)
       }
     }
-  }
   
   private func getCustomToken(
     accessToken: String,
@@ -60,12 +68,12 @@ class FirebaseAuthManager {
   private func checkFirebaseLogin(
     result: AuthDataResult?,
     error: Error?) throws {
-    if let error = error {
-      throw FirebaseAuthError.firebaseLoginFailed(description: error.localizedDescription)
-    }
-    guard let result = result else {
-      throw FirebaseAuthError.dataNotfound
-    }
+      if let error = error {
+        throw FirebaseAuthError.firebaseLoginFailed(description: error.localizedDescription)
+      }
+      guard let result = result else {
+        throw FirebaseAuthError.dataNotfound
+      }
       print("파이어베이스 로그인 성공: \(result.user.email ?? "")")
-  }
+    }
 }

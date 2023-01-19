@@ -33,7 +33,7 @@ class LoginViewModel: ObservableObject {
         token: try appleAuthManager.getAppleToken(user: user),
         nonce: self.nonce)
     } catch {
-      debugPrint(error.localizedDescription)
+      debugPrint(error)
     }
   }
   

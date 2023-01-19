@@ -33,7 +33,7 @@ struct KakaoAuthManager {
         do {
           completion(try self.onReceiveKakaoToken(oAuthToken: oAuthToken, error: error))
         } catch {
-          debugPrint(error.localizedDescription)
+          debugPrint(error)
         }
       }
     } else {
@@ -41,7 +41,7 @@ struct KakaoAuthManager {
         do {
           completion(try self.onReceiveKakaoToken(oAuthToken: oAuthToken, error: error))
         } catch {
-          debugPrint(error.localizedDescription)
+          debugPrint(error)
         }
       }
     }
