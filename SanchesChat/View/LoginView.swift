@@ -22,7 +22,7 @@ struct LoginView: View {
               .frame(width: 17)
             Text("Login with Kakao")
               .bold()
-              .fontSize20
+              .fontSize(20)
               .foregroundColor(._000000)
           }
           .frame(height: 55)
