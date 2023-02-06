@@ -15,8 +15,26 @@ struct LoginView: View {
         Button {
           loginViewModel.kakaoLogin()
         } label: {
-          Text("카카오 로그인")
+          HStack {
+            Image("kakaoSymbol")
+              .resizable()
+              .scaledToFit()
+              .frame(width: 17)
+            Text("Login with Kakao")
+              .bold()
+              .fontSize20
+              .foregroundColor(._000000)
+          }
+          .frame(height: 55)
+          .frame(maxWidth: .infinity)
+          .background(
+            RoundedRectangle(cornerRadius: 5)
+              .foregroundColor(._FEE500)
+          )
+          .padding(.horizontal, 30)
+          
         }
+        
         SignInWithAppleButton { request in
           loginViewModel.getNonce()
           request.requestedScopes = [.email, .fullName]
