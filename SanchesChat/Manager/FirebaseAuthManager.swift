@@ -5,6 +5,7 @@
 //  Created by tae hoon park on 2023/01/18.
 //
 
+import Combine
 import FirebaseFunctions
 import FirebaseAuth
 
@@ -15,37 +16,38 @@ class FirebaseAuthManager {
   func signInToFirebaseWithAppleToken(
     token: String,
     nonce: String
-  ) {
-    let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com", idToken: token, rawNonce: nonce)
-    Auth.auth().signIn(with: firebaseCredential) { result, error in
-      do {
-        try self.checkFirebaseLogin(result: result, error: error)
-      } catch {
-        debugPrint(error)
+  ) -> AnyPublisher<Void, FirebaseAuthError> {
+    return Future<Void, FirebaseAuthError> { promise in
+      let firebaseCredential = OAuthProvider.credential(
+        withProviderID: "apple.com",
+        idToken: token,
+        rawNonce: nonce
+      )
+      Auth.auth().signIn(with: firebaseCredential) { result, error in
+        promise(self.checkFirebaseLogin(result: result, error: error))
       }
-    }
+    }.eraseToAnyPublisher()
   }
   
   func signInToFirebaseWithCustomToken(
-    accessToken: String) {
-      getCustomToken(
+    accessToken: String
+  ) -> AnyPublisher<Void, FirebaseAuthError>{
+    return Future<Void, FirebaseAuthError> { promise in
+      self.getCustomToken(
         accessToken: accessToken,
-        path: kakaoCustomTokenPath
+        path: self.kakaoCustomTokenPath
       ) { result in
         switch result {
         case .success(let customToken):
           Auth.auth().signIn(withCustomToken: customToken) { result, error in
-            do {
-              try self.checkFirebaseLogin(result: result, error: error)
-            } catch {
-              debugPrint(error)
-            }
+            promise(self.checkFirebaseLogin(result: result, error: error))
           }
         case .failure(let error):
-          debugPrint(error.errorDescription)
+          promise(.failure(error))
         }
       }
-    }
+    }.eraseToAnyPublisher()
+  }
   
   private func getCustomToken(
     accessToken: String,
@@ -67,13 +69,14 @@ class FirebaseAuthManager {
   
   private func checkFirebaseLogin(
     result: AuthDataResult?,
-    error: Error?) throws {
+    error: Error?) -> Result<Void, FirebaseAuthError> {
       if let error = error {
-        throw FirebaseAuthError.firebaseLoginFailed(description: error.localizedDescription)
+        return .failure(.firebaseLoginFailed(description: error.localizedDescription))
       }
       guard let result = result else {
-        throw FirebaseAuthError.dataNotfound
+        return .failure(.dataNotfound)
       }
       print("파이어베이스 로그인 성공: \(result.user.email ?? "")")
+      return .success(())
     }
 }
