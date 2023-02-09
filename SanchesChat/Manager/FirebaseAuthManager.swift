@@ -16,7 +16,7 @@ class FirebaseAuthManager {
   func signInToFirebaseWithAppleToken(
     token: String,
     nonce: String
-  ) -> AnyPublisher<Void, FirebaseAuthError> {
+  ) -> AnyPublisher<Void, Error> {
     return Future<Void, FirebaseAuthError> { promise in
       let firebaseCredential = OAuthProvider.credential(
         withProviderID: "apple.com",
@@ -26,12 +26,14 @@ class FirebaseAuthManager {
       Auth.auth().signIn(with: firebaseCredential) { result, error in
         promise(self.checkFirebaseLogin(result: result, error: error))
       }
-    }.eraseToAnyPublisher()
+    }
+    .mapError { $0 as Error }
+    .eraseToAnyPublisher()
   }
   
   func signInToFirebaseWithCustomToken(
     accessToken: String
-  ) -> AnyPublisher<Void, FirebaseAuthError>{
+  ) -> AnyPublisher<Void, Error>{
     return Future<Void, FirebaseAuthError> { promise in
       self.getCustomToken(
         accessToken: accessToken,
@@ -46,7 +48,9 @@ class FirebaseAuthManager {
           promise(.failure(error))
         }
       }
-    }.eraseToAnyPublisher()
+    }
+    .mapError { $0 as Error }
+    .eraseToAnyPublisher()
   }
   
   private func getCustomToken(

@@ -10,7 +10,7 @@ import KakaoSDKUser
 import KakaoSDKAuth
 
 struct KakaoAuthManager {
-  func getKakaoToken() -> AnyPublisher<OAuthToken, KakaoAuthError> {
+  func getKakaoToken() -> AnyPublisher<OAuthToken, Error> {
     return Future<OAuthToken, KakaoAuthError> { promise in
       if AuthApi.hasToken() {
         UserApi.shared.logout { error in
@@ -22,7 +22,9 @@ struct KakaoAuthManager {
       } else {
         checkedKakaoInstallState { promise($0) }
       }
-    }.eraseToAnyPublisher()
+    }
+    .mapError { $0 as Error }
+    .eraseToAnyPublisher()
   }
   
   private func checkedKakaoInstallState(

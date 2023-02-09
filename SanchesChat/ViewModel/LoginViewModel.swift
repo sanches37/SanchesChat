@@ -14,27 +14,44 @@ class LoginViewModel: ObservableObject {
   private let appleAuthManager = AppleAuthManager()
   private let firebaseAuthManager = FirebaseAuthManager()
   private let nonceManager = NonceManager()
+  private var cancellable = Set<AnyCancellable>()
   @Published var nonce = ""
   
   func kakaoLogin() {
-    kakaoAuthManager.getKakaoToken { result in
-      switch result {
-      case .success(let data):
-        self.firebaseAuthManager.signInToFirebaseWithCustomToken(accessToken: data.accessToken)
-      case .failure(let error):
-        debugPrint(error.errorDescription)
+    kakaoAuthManager.getKakaoToken()
+      .flatMap {
+        self.firebaseAuthManager.signInToFirebaseWithCustomToken(
+          accessToken: $0.accessToken
+        )
       }
-    }
+      .sink { completion in
+        switch completion {
+        case .finished:
+          debugPrint("finished")
+        case .failure(let error):
+          debugPrint(error.localizedDescription)
+        }
+      } receiveValue: { _ in }
+      .store(in: &cancellable)
   }
   
   func appleLogin(user: ASAuthorization) {
-    do {
-      firebaseAuthManager.signInToFirebaseWithAppleToken(
-        token: try appleAuthManager.getAppleToken(user: user),
-        nonce: self.nonce)
-    } catch {
-      debugPrint(error)
-    }
+    appleAuthManager.getAppleToken(user: user)
+      .flatMap {
+        self .firebaseAuthManager.signInToFirebaseWithAppleToken(
+          token: $0,
+          nonce: self.nonce
+        )
+      }
+      .sink { completion in
+        switch completion {
+        case .finished:
+          debugPrint("finished")
+        case .failure(let error):
+          debugPrint(error.localizedDescription)
+        }
+      } receiveValue: { _ in }
+      .store(in: &cancellable)
   }
   
   func getSha256() -> String {
