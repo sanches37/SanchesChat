@@ -15,6 +15,6 @@ struct AppleAuthManager {
           let tokenString = String(data: token, encoding: .utf8) else {
       return Fail(error: AppleAuthError.tokenLookupFailed).eraseToAnyPublisher()
     }
-    return Future<String, Error> { $0(.success(tokenString))}.eraseToAnyPublisher()
+    return Just(tokenString).setFailureType(to: Error.self).eraseToAnyPublisher()
   }
 }
