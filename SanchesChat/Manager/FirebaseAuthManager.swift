@@ -15,26 +15,50 @@ class FirebaseAuthManager {
   
   func signInToFirebaseWithAppleToken(
     token: String,
+    fullName: String?,
     nonce: String
-  ) -> AnyPublisher<Void, Error> {
-    return Future<Void, FirebaseAuthError> { promise in
+  ) -> AnyPublisher<Bool, Error> {
+    return Future<Bool, FirebaseAuthError> { promise in
       let firebaseCredential = OAuthProvider.credential(
         withProviderID: "apple.com",
         idToken: token,
         rawNonce: nonce
       )
       Auth.auth().signIn(with: firebaseCredential) { result, error in
-        promise(self.checkFirebaseLogin(result: result, error: error))
+        let checkResult = self.checkFirebaseLogin(result: result, error: error)
+        switch checkResult {
+        case .success(let result):
+          self.updateFullName(fullName: fullName, isNewUser: result) { promise($0) }
+        case .failure(let error):
+          promise(.failure(error))
+        }
       }
     }
     .mapError { $0 as Error }
     .eraseToAnyPublisher()
   }
   
+  private func updateFullName(
+    fullName: String?,
+    isNewUser: Bool,
+    completion: @escaping (Result<Bool, FirebaseAuthError>) -> Void) {
+      if isNewUser,
+         let fullName = fullName,
+         let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest() {
+        changeRequest.displayName = fullName
+        changeRequest.commitChanges { error in
+          if let error = error {
+            completion(.failure(.updateFullNameFailed(description: error.localizedDescription)))
+          }
+        }
+      }
+      completion(.success(isNewUser))
+    }
+  
   func signInToFirebaseWithCustomToken(
     accessToken: String
-  ) -> AnyPublisher<Void, Error>{
-    return Future<Void, FirebaseAuthError> { promise in
+  ) -> AnyPublisher<Bool, Error> {
+    return Future<Bool, FirebaseAuthError> { promise in
       self.getCustomToken(
         accessToken: accessToken,
         path: self.kakaoCustomTokenPath
@@ -73,14 +97,13 @@ class FirebaseAuthManager {
   
   private func checkFirebaseLogin(
     result: AuthDataResult?,
-    error: Error?) -> Result<Void, FirebaseAuthError> {
+    error: Error?) -> Result<Bool, FirebaseAuthError> {
       if let error = error {
         return .failure(.firebaseLoginFailed(description: error.localizedDescription))
       }
-      guard let result = result else {
+      guard let isNewUser = result?.additionalUserInfo?.isNewUser else {
         return .failure(.dataNotfound)
       }
-      print("파이어베이스 로그인 성공: \(result.user.email ?? "")")
-      return .success(())
+      return .success(isNewUser)
     }
 }

@@ -17,4 +17,11 @@ struct AppleAuthManager {
     }
     return Just(tokenString).setFailureType(to: Error.self).eraseToAnyPublisher()
   }
+  
+  func getApplFullName(user: ASAuthorization) -> String? {
+    guard let credential = user.credential as? ASAuthorizationAppleIDCredential,
+          let familyName = credential.fullName?.familyName,
+          let givenName = credential.fullName?.givenName else { return nil }
+    return "\(familyName) \(givenName)"
+  }
 }

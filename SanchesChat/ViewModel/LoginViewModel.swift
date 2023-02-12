@@ -38,8 +38,9 @@ class LoginViewModel: ObservableObject {
   func appleLogin(user: ASAuthorization) {
     appleAuthManager.getAppleToken(user: user)
       .flatMap {
-        self .firebaseAuthManager.signInToFirebaseWithAppleToken(
+        self.firebaseAuthManager.signInToFirebaseWithAppleToken(
           token: $0,
+          fullName: self.appleAuthManager.getApplFullName(user: user),
           nonce: self.nonce
         )
       }
