@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum FireStoreError: Error, LocalizedError {
+enum FirestoreError: Error, LocalizedError {
   case unknown(description: String)
   case dataNotfound
   case decodingFailed

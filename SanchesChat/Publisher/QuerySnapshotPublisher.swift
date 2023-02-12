@@ -12,17 +12,17 @@ import FirebaseFirestoreSwift
 extension Publishers {
   struct QuerySnapshotPublisher<T: Decodable>: Publisher {
     typealias Output = [T]
-    typealias Failure = FireStoreError
+    typealias Failure = FirestoreError
     
     let query: Query
     
-    func receive<S>(subscriber: S) where S : Subscriber, FireStoreError == S.Failure, [T] == S.Input {
+    func receive<S>(subscriber: S) where S : Subscriber, FirestoreError == S.Failure, [T] == S.Input {
       let querySnapshotSubscription = QuerySnapShotSubscription(subscriber: subscriber, query: query)
       subscriber.receive(subscription: querySnapshotSubscription)
     }
   }
   
-  class QuerySnapShotSubscription<S: Subscriber, T: Decodable>: Subscription where S.Input == [T], S.Failure == FireStoreError {
+  class QuerySnapShotSubscription<S: Subscriber, T: Decodable>: Subscription where S.Input == [T], S.Failure == FirestoreError {
     private var subscriber: S?
     private var listener: ListenerRegistration?
     
