@@ -30,6 +30,9 @@
 		4D8D74652979444000CC3F46 /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D74642979444000CC3F46 /* AppleAuthManager.swift */; };
 		4D8D74672990B6A000CC3F46 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D74662990B6A000CC3F46 /* Font.swift */; };
 		4D8D74692990B7F500CC3F46 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D74682990B7F500CC3F46 /* Color.swift */; };
+		4DCA75D8299743B4003ECE6C /* QuerySnapshotPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA75D7299743B4003ECE6C /* QuerySnapshotPublisher.swift */; };
+		4DCA75DA299745CD003ECE6C /* FirestoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA75D9299745CC003ECE6C /* FirestoreError.swift */; };
+		4DCA75DE29993339003ECE6C /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA75DD29993339003ECE6C /* FirestoreManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +54,9 @@
 		4D8D74642979444000CC3F46 /* AppleAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthManager.swift; sourceTree = "<group>"; };
 		4D8D74662990B6A000CC3F46 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		4D8D74682990B7F500CC3F46 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		4DCA75D7299743B4003ECE6C /* QuerySnapshotPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuerySnapshotPublisher.swift; sourceTree = "<group>"; };
+		4DCA75D9299745CC003ECE6C /* FirestoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreError.swift; sourceTree = "<group>"; };
+		4DCA75DD29993339003ECE6C /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +102,7 @@
 				4D8D74532977F2A200CC3F46 /* View */,
 				4D8D744D2977E8F200CC3F46 /* Manager */,
 				4D8D74502977E99D00CC3F46 /* Error */,
+				4DCA75D62997438F003ECE6C /* Publisher */,
 				4D8D742A2977D56F00CC3F46 /* SanchesChatApp.swift */,
 				4D8D742E2977D57200CC3F46 /* Assets.xcassets */,
 				4D8D744C2977E5AD00CC3F46 /* Info.plist */,
@@ -120,6 +127,7 @@
 				4D8D745729780C9E00CC3F46 /* FirebaseAuthManager.swift */,
 				4D8D746029793BC700CC3F46 /* NonceManager.swift */,
 				4D8D74642979444000CC3F46 /* AppleAuthManager.swift */,
+				4DCA75DD29993339003ECE6C /* FirestoreManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -130,6 +138,7 @@
 				4D8D74512977E9B600CC3F46 /* KakaoAuthError.swift */,
 				4D8D745929780CD300CC3F46 /* FirebaseAuthError.swift */,
 				4D8D74622979413E00CC3F46 /* AppleAuthError.swift */,
+				4DCA75D9299745CC003ECE6C /* FirestoreError.swift */,
 			);
 			path = Error;
 			sourceTree = "<group>";
@@ -150,6 +159,14 @@
 				4D8D74552977F2E900CC3F46 /* LoginViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4DCA75D62997438F003ECE6C /* Publisher */ = {
+			isa = PBXGroup;
+			children = (
+				4DCA75D7299743B4003ECE6C /* QuerySnapshotPublisher.swift */,
+			);
+			path = Publisher;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,12 +255,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D8D745829780C9E00CC3F46 /* FirebaseAuthManager.swift in Sources */,
+				4DCA75DE29993339003ECE6C /* FirestoreManager.swift in Sources */,
 				4D8D74632979413E00CC3F46 /* AppleAuthError.swift in Sources */,
+				4DCA75D8299743B4003ECE6C /* QuerySnapshotPublisher.swift in Sources */,
 				4D8D744F2977E91400CC3F46 /* KakaoAuthManager.swift in Sources */,
 				4D8D742D2977D56F00CC3F46 /* LoginView.swift in Sources */,
 				4D8D746129793BC700CC3F46 /* NonceManager.swift in Sources */,
 				4D8D74692990B7F500CC3F46 /* Color.swift in Sources */,
 				4D8D745A29780CD300CC3F46 /* FirebaseAuthError.swift in Sources */,
+				4DCA75DA299745CD003ECE6C /* FirestoreError.swift in Sources */,
 				4D8D74522977E9B600CC3F46 /* KakaoAuthError.swift in Sources */,
 				4D8D742B2977D56F00CC3F46 /* SanchesChatApp.swift in Sources */,
 				4D8D74672990B6A000CC3F46 /* Font.swift in Sources */,
