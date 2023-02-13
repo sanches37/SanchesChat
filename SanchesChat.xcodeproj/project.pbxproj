@@ -33,6 +33,7 @@
 		4DCA75D8299743B4003ECE6C /* QuerySnapshotPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA75D7299743B4003ECE6C /* QuerySnapshotPublisher.swift */; };
 		4DCA75DA299745CD003ECE6C /* FirestoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA75D9299745CC003ECE6C /* FirestoreError.swift */; };
 		4DCA75DE29993339003ECE6C /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA75DD29993339003ECE6C /* FirestoreManager.swift */; };
+		4DCA75E42999534C003ECE6C /* ChatUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA75E32999534C003ECE6C /* ChatUser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		4DCA75D7299743B4003ECE6C /* QuerySnapshotPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuerySnapshotPublisher.swift; sourceTree = "<group>"; };
 		4DCA75D9299745CC003ECE6C /* FirestoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreError.swift; sourceTree = "<group>"; };
 		4DCA75DD29993339003ECE6C /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
+		4DCA75E32999534C003ECE6C /* ChatUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				4D8D745B2978FF6B00CC3F46 /* SanchesChat.entitlements */,
+				4DCA75E22999533E003ECE6C /* Model */,
 				4D8D74542977F2D700CC3F46 /* ViewModel */,
 				4D8D74532977F2A200CC3F46 /* View */,
 				4D8D744D2977E8F200CC3F46 /* Manager */,
@@ -167,6 +170,14 @@
 				4DCA75D7299743B4003ECE6C /* QuerySnapshotPublisher.swift */,
 			);
 			path = Publisher;
+			sourceTree = "<group>";
+		};
+		4DCA75E22999533E003ECE6C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4DCA75E32999534C003ECE6C /* ChatUser.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,6 +273,7 @@
 				4D8D742D2977D56F00CC3F46 /* LoginView.swift in Sources */,
 				4D8D746129793BC700CC3F46 /* NonceManager.swift in Sources */,
 				4D8D74692990B7F500CC3F46 /* Color.swift in Sources */,
+				4DCA75E42999534C003ECE6C /* ChatUser.swift in Sources */,
 				4D8D745A29780CD300CC3F46 /* FirebaseAuthError.swift in Sources */,
 				4DCA75DA299745CD003ECE6C /* FirestoreError.swift in Sources */,
 				4D8D74522977E9B600CC3F46 /* KakaoAuthError.swift in Sources */,

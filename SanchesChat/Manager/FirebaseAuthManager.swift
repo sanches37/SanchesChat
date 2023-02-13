@@ -17,8 +17,8 @@ class FirebaseAuthManager {
     token: String,
     fullName: String?,
     nonce: String
-  ) -> AnyPublisher<Bool, Error> {
-    return Future<Bool, FirebaseAuthError> { promise in
+  ) -> AnyPublisher<Void, Error> {
+    return Future<Void, FirebaseAuthError> { promise in
       let firebaseCredential = OAuthProvider.credential(
         withProviderID: "apple.com",
         idToken: token,
@@ -27,8 +27,8 @@ class FirebaseAuthManager {
       Auth.auth().signIn(with: firebaseCredential) { result, error in
         let checkResult = self.checkFirebaseLogin(result: result, error: error)
         switch checkResult {
-        case .success(let result):
-          self.updateFullName(fullName: fullName, isNewUser: result) { promise($0) }
+        case .success :
+          self.updateFullName(fullName: fullName) { promise($0) }
         case .failure(let error):
           promise(.failure(error))
         }
@@ -40,25 +40,25 @@ class FirebaseAuthManager {
   
   private func updateFullName(
     fullName: String?,
-    isNewUser: Bool,
-    completion: @escaping (Result<Bool, FirebaseAuthError>) -> Void) {
-      if isNewUser,
-         let fullName = fullName,
-         let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest() {
-        changeRequest.displayName = fullName
-        changeRequest.commitChanges { error in
-          if let error = error {
-            completion(.failure(.updateFullNameFailed(description: error.localizedDescription)))
-          }
-        }
+    completion: @escaping (Result<Void, FirebaseAuthError>) -> Void) {
+      guard let fullName = fullName,
+            let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest() else {
+        completion(.success(()))
+        return
       }
-      completion(.success(isNewUser))
+      changeRequest.displayName = fullName
+      changeRequest.commitChanges { error in
+        if let error = error {
+          completion(.failure(.updateFullNameFailed(description: error.localizedDescription)))
+        }
+        completion(.success(()))
+      }
     }
   
   func signInToFirebaseWithCustomToken(
     accessToken: String
-  ) -> AnyPublisher<Bool, Error> {
-    return Future<Bool, FirebaseAuthError> { promise in
+  ) -> AnyPublisher<Void, Error> {
+    return Future<Void, FirebaseAuthError> { promise in
       self.getCustomToken(
         accessToken: accessToken,
         path: self.kakaoCustomTokenPath
@@ -97,13 +97,17 @@ class FirebaseAuthManager {
   
   private func checkFirebaseLogin(
     result: AuthDataResult?,
-    error: Error?) -> Result<Bool, FirebaseAuthError> {
+    error: Error?) -> Result<Void, FirebaseAuthError> {
       if let error = error {
         return .failure(.firebaseLoginFailed(description: error.localizedDescription))
       }
-      guard let isNewUser = result?.additionalUserInfo?.isNewUser else {
+      guard let _ = result else {
         return .failure(.dataNotfound)
       }
-      return .success(isNewUser)
+      return .success(())
     }
+  
+  func currentUser() -> AnyPublisher<User?, Never> {
+    Just(Auth.auth().currentUser).eraseToAnyPublisher()
+  }
 }

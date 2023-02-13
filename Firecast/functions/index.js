@@ -90,7 +90,6 @@ async function createFirebaseToken(kakaoAccessToken) {
     }
 
     const updateParams = {
-        uid: userId,
         provider: 'KAKAO',
         displayName: nickname,
         email: userData.kakao_account.email,
@@ -106,6 +105,6 @@ async function createFirebaseToken(kakaoAccessToken) {
     }
 
     console.log(updateParams);
-    await updateOrCreateUser(updateParams);
-    return admin.auth().createCustomToken(userId, { provider: 'KAKAO' });
+    let user = await updateOrCreateUser(updateParams);
+    return admin.auth().createCustomToken(user.uid, { provider: 'KAKAO' });
 }

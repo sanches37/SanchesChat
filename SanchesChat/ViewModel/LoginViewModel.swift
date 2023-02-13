@@ -14,6 +14,7 @@ class LoginViewModel: ObservableObject {
   private let appleAuthManager = AppleAuthManager()
   private let firebaseAuthManager = FirebaseAuthManager()
   private let nonceManager = NonceManager()
+  private let firestoreManager = FirestoreManager()
   private var cancellable = Set<AnyCancellable>()
   @Published var nonce = ""
   
@@ -27,18 +28,20 @@ class LoginViewModel: ObservableObject {
       .sink { completion in
         switch completion {
         case .finished:
-          debugPrint("finished")
+          debugPrint("login finished")
         case .failure(let error):
           debugPrint(error.localizedDescription)
         }
-      } receiveValue: { _ in }
+      } receiveValue: { _ in
+        self.createUser()
+      }
       .store(in: &cancellable)
   }
   
   func appleLogin(user: ASAuthorization) {
     appleAuthManager.getAppleToken(user: user)
       .flatMap {
-        self.firebaseAuthManager.signInToFirebaseWithAppleToken(
+        self .firebaseAuthManager.signInToFirebaseWithAppleToken(
           token: $0,
           fullName: self.appleAuthManager.getApplFullName(user: user),
           nonce: self.nonce
@@ -47,11 +50,13 @@ class LoginViewModel: ObservableObject {
       .sink { completion in
         switch completion {
         case .finished:
-          debugPrint("finished")
+          debugPrint("login finished")
         case .failure(let error):
           debugPrint(error.localizedDescription)
         }
-      } receiveValue: { _ in }
+      } receiveValue: { _ in
+        self.createUser()
+      }
       .store(in: &cancellable)
   }
   
@@ -63,5 +68,38 @@ class LoginViewModel: ObservableObject {
   
   func getNonce() {
     self.nonce = nonceManager.randomNonceString()
+  }
+  
+  private func createUser() {
+    firebaseAuthManager.currentUser()
+      .compactMap { $0 }
+      .flatMap { user -> AnyPublisher<Void, Error> in
+        self.firestoreManager.checkDocument(document: .users(uid: user.uid))
+          .flatMap {
+            if $0 == false {
+              let chatUser = ChatUser(
+                name: user.displayName ?? "",
+                email: user.email ?? "",
+                uid: user.uid,
+                profileImageUrl: user.photoURL?.description)
+              
+              return self.firestoreManager.createDocument(
+                data: chatUser,
+                document: .users(uid: user.uid)
+              )
+            }
+            return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
+          }
+          .eraseToAnyPublisher()
+      }
+      .sink { completion in
+        switch completion {
+        case .finished:
+          debugPrint("createUser finished")
+        case .failure(let error):
+          debugPrint(error.localizedDescription)
+        }
+      } receiveValue: { _ in }
+      .store(in: &cancellable)
   }
 }

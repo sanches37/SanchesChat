@@ -10,10 +10,27 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct FirestoreManager {
-  func documentCreate<T: Encodable>(type: T, document: DocumentReference) -> AnyPublisher<Void, Error> {
+  func checkDocument(document: FirestoreDocument) -> AnyPublisher<Bool, Error> {
+    return Future<Bool, FirestoreError> { promise in
+      document.path.getDocument { document, error in
+        if let error = error {
+          promise(.failure(.unknown(description: error.localizedDescription)))
+        }
+        guard let isDocument = document?.exists else {
+          promise(.failure(.dataNotfound))
+          return
+        }
+        promise(.success(isDocument))
+      }
+    }
+    .mapError { $0 as Error }
+    .eraseToAnyPublisher()
+  }
+  
+  func createDocument<T: Encodable>(data: T, document: FirestoreDocument) -> AnyPublisher<Void, Error> {
     return Future<Void, FirestoreError> { promise in
       do {
-        try document.setData(from: type) { error in
+        try document.path.setData(from: data) { error in
           if let error = error {
             promise(.failure(.unknown(description: error.localizedDescription)))
           }
@@ -23,7 +40,7 @@ struct FirestoreManager {
         promise(.failure(.unknown(description: error.localizedDescription)))
       }
     }
-    .mapError { $0 as Error}
+    .mapError { $0 as Error }
     .eraseToAnyPublisher()
   }
   
@@ -31,5 +48,18 @@ struct FirestoreManager {
     Publishers.QuerySnapshotPublisher<T>(query: query)
       .mapError{ $0 as Error }
       .eraseToAnyPublisher()
+  }
+}
+
+enum FirestoreDocument {
+  case users(uid: String)
+  
+  static let db = Firestore.firestore()
+  
+  var path: DocumentReference {
+    switch self {
+    case let .users(uid: uid):
+      return Self.db.collection("users").document(uid)
+    }
   }
 }
