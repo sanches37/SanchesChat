@@ -25,7 +25,7 @@ class FirebaseAuthManager {
         rawNonce: nonce
       )
       Auth.auth().signIn(with: firebaseCredential) { result, error in
-        let checkResult = self.checkFirebaseLogin(result: result, error: error)
+        let checkResult = self.checkFirebaseLogIn(result: result, error: error)
         switch checkResult {
         case .success :
           self.updateFullName(fullName: fullName) { promise($0) }
@@ -66,7 +66,7 @@ class FirebaseAuthManager {
         switch result {
         case .success(let customToken):
           Auth.auth().signIn(withCustomToken: customToken) { result, error in
-            promise(self.checkFirebaseLogin(result: result, error: error))
+            promise(self.checkFirebaseLogIn(result: result, error: error))
           }
         case .failure(let error):
           promise(.failure(error))
@@ -95,11 +95,11 @@ class FirebaseAuthManager {
         }
     }
   
-  private func checkFirebaseLogin(
+  private func checkFirebaseLogIn(
     result: AuthDataResult?,
     error: Error?) -> Result<Void, FirebaseAuthError> {
       if let error = error {
-        return .failure(.firebaseLoginFailed(description: error.localizedDescription))
+        return .failure(.firebaseLogInFailed(description: error.localizedDescription))
       }
       guard let _ = result else {
         return .failure(.dataNotfound)
@@ -113,5 +113,18 @@ class FirebaseAuthManager {
   
   func observeCurrentUser() -> AnyPublisher<User?, Never> {
     Publishers.AuthPublisher().eraseToAnyPublisher()
+  }
+  
+  func firebaseLogOut() -> AnyPublisher<Void, Error> {
+    return Future<Void, FirebaseAuthError> { promise in
+      do {
+        try Auth.auth().signOut()
+        promise(.success(()))
+      } catch {
+        promise(.failure(.firebaseLogOutFailed(description: error.localizedDescription)))
+      }
+    }
+    .mapError{ $0 as Error }
+    .eraseToAnyPublisher()
   }
 }

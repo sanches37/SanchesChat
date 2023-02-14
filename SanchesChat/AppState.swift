@@ -8,7 +8,7 @@
 import Combine
 
 class AppState: ObservableObject {
-  @Published private(set) var isLogin = false
+  @Published private(set) var isLogIn = false
   @Published private(set) var currentUserId: String?
   private let firebaseAuthManager = FirebaseAuthManager()
   
@@ -20,7 +20,7 @@ class AppState: ObservableObject {
   private func observeCurrentUser() {
     firebaseAuthManager.observeCurrentUser()
       .map { $0 != nil }
-      .assign(to: &$isLogin)
+      .assign(to: &$isLogIn)
   }
   
   private func getCurrentUserId() {

@@ -8,19 +8,19 @@
 import SwiftUI
 import AuthenticationServices
 
-struct LoginView: View {
-  @StateObject var loginViewModel = LoginViewModel()
+struct LogInView: View {
+  @StateObject var viewModel = LogInViewModel()
     var body: some View {
       VStack {
         Button {
-          loginViewModel.kakaoLogin()
+          viewModel.kakaoLogIn()
         } label: {
           HStack {
             Image("kakaoSymbol")
               .resizable()
               .scaledToFit()
               .frame(width: 17)
-            Text("Login with Kakao")
+            Text("LogIn with Kakao")
               .bold()
               .fontSize(20)
               .foregroundColor(._000000)
@@ -36,13 +36,13 @@ struct LoginView: View {
         }
         
         SignInWithAppleButton { request in
-          loginViewModel.getNonce()
+          viewModel.getNonce()
           request.requestedScopes = [.email, .fullName]
-          request.nonce = loginViewModel.getSha256()
+          request.nonce = viewModel.getSha256()
         } onCompletion: { result in
           switch result {
           case .success(let user):
-            loginViewModel.appleLogin(user: user)
+            viewModel.appleLogIn(user: user)
           case .failure(let error):
             debugPrint(error.localizedDescription)
           }
@@ -54,8 +54,8 @@ struct LoginView: View {
     }
 }
 
-struct LoginView_Previews: PreviewProvider {
+struct LogInView_Previews: PreviewProvider {
   static var previews: some View {
-    LoginView()
+    LogInView()
   }
 }

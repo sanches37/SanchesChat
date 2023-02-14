@@ -17,6 +17,7 @@
 		4D72BEE7299B639B009DD66D /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 4D72BEE6299B639B009DD66D /* KakaoSDKUser */; };
 		4D72BEE9299B8E34009DD66D /* AuthPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D72BEE8299B8E34009DD66D /* AuthPublisher.swift */; };
 		4D72BEEB299B927D009DD66D /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D72BEEA299B927D009DD66D /* AppState.swift */; };
+		4D72BEED299B99BB009DD66D /* MainListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D72BEEC299B99BB009DD66D /* MainListViewModel.swift */; };
 		4D8D742B2977D56F00CC3F46 /* SanchesChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D742A2977D56F00CC3F46 /* SanchesChatApp.swift */; };
 		4D8D742D2977D56F00CC3F46 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D742C2977D56F00CC3F46 /* LoginView.swift */; };
 		4D8D742F2977D57200CC3F46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D8D742E2977D57200CC3F46 /* Assets.xcassets */; };
@@ -24,7 +25,7 @@
 		4D8D74392977DA4E00CC3F46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D8D74382977DA4E00CC3F46 /* GoogleService-Info.plist */; };
 		4D8D744F2977E91400CC3F46 /* KakaoAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D744E2977E91400CC3F46 /* KakaoAuthManager.swift */; };
 		4D8D74522977E9B600CC3F46 /* KakaoAuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D74512977E9B600CC3F46 /* KakaoAuthError.swift */; };
-		4D8D74562977F2E900CC3F46 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D74552977F2E900CC3F46 /* LoginViewModel.swift */; };
+		4D8D74562977F2E900CC3F46 /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D74552977F2E900CC3F46 /* LogInViewModel.swift */; };
 		4D8D745829780C9E00CC3F46 /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D745729780C9E00CC3F46 /* FirebaseAuthManager.swift */; };
 		4D8D745A29780CD300CC3F46 /* FirebaseAuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D745929780CD300CC3F46 /* FirebaseAuthError.swift */; };
 		4D8D746129793BC700CC3F46 /* NonceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D746029793BC700CC3F46 /* NonceManager.swift */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		4D72BEE8299B8E34009DD66D /* AuthPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPublisher.swift; sourceTree = "<group>"; };
 		4D72BEEA299B927D009DD66D /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		4D72BEEC299B99BB009DD66D /* MainListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListViewModel.swift; sourceTree = "<group>"; };
 		4D8D74272977D56F00CC3F46 /* SanchesChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SanchesChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D8D742A2977D56F00CC3F46 /* SanchesChatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SanchesChatApp.swift; sourceTree = "<group>"; };
 		4D8D742C2977D56F00CC3F46 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -51,7 +53,7 @@
 		4D8D744C2977E5AD00CC3F46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4D8D744E2977E91400CC3F46 /* KakaoAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthManager.swift; sourceTree = "<group>"; };
 		4D8D74512977E9B600CC3F46 /* KakaoAuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthError.swift; sourceTree = "<group>"; };
-		4D8D74552977F2E900CC3F46 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		4D8D74552977F2E900CC3F46 /* LogInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewModel.swift; sourceTree = "<group>"; };
 		4D8D745729780C9E00CC3F46 /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		4D8D745929780CD300CC3F46 /* FirebaseAuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthError.swift; sourceTree = "<group>"; };
 		4D8D745B2978FF6B00CC3F46 /* SanchesChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SanchesChat.entitlements; sourceTree = "<group>"; };
@@ -167,7 +169,8 @@
 		4D8D74542977F2D700CC3F46 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				4D8D74552977F2E900CC3F46 /* LoginViewModel.swift */,
+				4D8D74552977F2E900CC3F46 /* LogInViewModel.swift */,
+				4D72BEEC299B99BB009DD66D /* MainListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -292,7 +295,8 @@
 				4D8D74652979444000CC3F46 /* AppleAuthManager.swift in Sources */,
 				4DCA75E6299AB189003ECE6C /* MainListView.swift in Sources */,
 				4D72BEE9299B8E34009DD66D /* AuthPublisher.swift in Sources */,
-				4D8D74562977F2E900CC3F46 /* LoginViewModel.swift in Sources */,
+				4D8D74562977F2E900CC3F46 /* LogInViewModel.swift in Sources */,
+				4D72BEED299B99BB009DD66D /* MainListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

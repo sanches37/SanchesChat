@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import AuthenticationServices
 
-class LoginViewModel: ObservableObject {
+class LogInViewModel: ObservableObject {
   private let kakaoAuthManager = KakaoAuthManager()
   private let appleAuthManager = AppleAuthManager()
   private let firebaseAuthManager = FirebaseAuthManager()
@@ -18,7 +18,7 @@ class LoginViewModel: ObservableObject {
   private var cancellable = Set<AnyCancellable>()
   @Published var nonce = ""
   
-  func kakaoLogin() {
+  func kakaoLogIn() {
     kakaoAuthManager.getKakaoToken()
       .flatMap {
         self.firebaseAuthManager.signInToFirebaseWithCustomToken(
@@ -28,7 +28,7 @@ class LoginViewModel: ObservableObject {
       .sink { completion in
         switch completion {
         case .finished:
-          debugPrint("login finished")
+          debugPrint("logIn finished")
         case .failure(let error):
           debugPrint(error.localizedDescription)
         }
@@ -38,7 +38,7 @@ class LoginViewModel: ObservableObject {
       .store(in: &cancellable)
   }
   
-  func appleLogin(user: ASAuthorization) {
+  func appleLogIn(user: ASAuthorization) {
     appleAuthManager.getAppleToken(user: user)
       .flatMap {
         self .firebaseAuthManager.signInToFirebaseWithAppleToken(
@@ -50,7 +50,7 @@ class LoginViewModel: ObservableObject {
       .sink { completion in
         switch completion {
         case .finished:
-          debugPrint("login finished")
+          debugPrint("logIn finished")
         case .failure(let error):
           debugPrint(error.localizedDescription)
         }

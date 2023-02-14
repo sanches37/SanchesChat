@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainListView: View {
+  @StateObject private var viewModel = MainListViewModel()
   @State private var profileOption = false
   
   var body: some View {
@@ -112,10 +113,10 @@ struct MainListView: View {
     ActionSheet(
       title: Text("Settings"),
       buttons: [
-        .default(Text("프로필")) {
+        .default(Text("프로필 수정")) {
           print("프로필") },
         .destructive(Text("로그아웃")) {
-          print("로그아웃") }
+          viewModel.logOut() }
       ]
     )
   }
