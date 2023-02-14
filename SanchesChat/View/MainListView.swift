@@ -102,7 +102,7 @@ struct MainListView: View {
       .padding(.vertical)
       .background(
         RoundedRectangle(cornerRadius: 32)
-          .foregroundColor(._CD853F)
+          .foregroundColor(._BC8F8F)
       )
       .padding(.horizontal)
     }

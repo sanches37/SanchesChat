@@ -12,7 +12,7 @@ extension Color {
   static let _FFFFFF = Color(hex: "FFFFFF")
   static let _FEE500 = Color(hex: "FEE500")
   static let _D3D3D3 = Color(hex: "D3D3D3")
-  static let _CD853F = Color(hex: "CD853F")
+  static let _BC8F8F = Color(hex: "BC8F8F")
   static let _4169E1 = Color(hex: "4169E1")
   static let _AFEEEE = Color(hex: "AFEEEE")
 }
