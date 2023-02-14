@@ -73,7 +73,7 @@ class LoginViewModel: ObservableObject {
   private func createUser() {
     firebaseAuthManager.currentUser()
       .compactMap { $0 }
-      .flatMap { user -> AnyPublisher<Void, Error> in
+      .flatMap { user in
         self.firestoreManager.checkDocument(document: .users(uid: user.uid))
           .flatMap {
             if $0 == false {
@@ -82,7 +82,7 @@ class LoginViewModel: ObservableObject {
                 email: user.email ?? "",
                 uid: user.uid,
                 profileImageUrl: user.photoURL?.description)
-              
+
               return self.firestoreManager.createDocument(
                 data: chatUser,
                 document: .users(uid: user.uid)
@@ -90,7 +90,6 @@ class LoginViewModel: ObservableObject {
             }
             return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
           }
-          .eraseToAnyPublisher()
       }
       .sink { completion in
         switch completion {

@@ -14,12 +14,13 @@ import KakaoSDKAuth
 struct SanchesChatApp: App {
   var body: some Scene {
     WindowGroup {
-      LoginView()
-        .onOpenURL { url in
-          if AuthApi.isKakaoTalkLoginUrl(url) {
-            _ = AuthController.handleOpenUrl(url: url)
-          }
-        }
+      MainListView()
+//      LoginView()
+//        .onOpenURL { url in
+//          if AuthApi.isKakaoTalkLoginUrl(url) {
+//            _ = AuthController.handleOpenUrl(url: url)
+//          }
+//        }
     }
   }
   
