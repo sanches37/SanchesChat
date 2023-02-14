@@ -110,4 +110,8 @@ class FirebaseAuthManager {
   func currentUser() -> AnyPublisher<User?, Never> {
     Just(Auth.auth().currentUser).eraseToAnyPublisher()
   }
+  
+  func observeCurrentUser() -> AnyPublisher<User?, Never> {
+    Publishers.AuthPublisher().eraseToAnyPublisher()
+  }
 }

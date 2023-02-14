@@ -15,6 +15,7 @@
 		4D72BEE3299B639B009DD66D /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4D72BEE2299B639B009DD66D /* KakaoSDKAuth */; };
 		4D72BEE5299B639B009DD66D /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 4D72BEE4299B639B009DD66D /* KakaoSDKCommon */; };
 		4D72BEE7299B639B009DD66D /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 4D72BEE6299B639B009DD66D /* KakaoSDKUser */; };
+		4D72BEE9299B8E34009DD66D /* AuthPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D72BEE8299B8E34009DD66D /* AuthPublisher.swift */; };
 		4D8D742B2977D56F00CC3F46 /* SanchesChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D742A2977D56F00CC3F46 /* SanchesChatApp.swift */; };
 		4D8D742D2977D56F00CC3F46 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D742C2977D56F00CC3F46 /* LoginView.swift */; };
 		4D8D742F2977D57200CC3F46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D8D742E2977D57200CC3F46 /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D72BEE8299B8E34009DD66D /* AuthPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPublisher.swift; sourceTree = "<group>"; };
 		4D8D74272977D56F00CC3F46 /* SanchesChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SanchesChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D8D742A2977D56F00CC3F46 /* SanchesChatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SanchesChatApp.swift; sourceTree = "<group>"; };
 		4D8D742C2977D56F00CC3F46 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				4DCA75D7299743B4003ECE6C /* QuerySnapshotPublisher.swift */,
+				4D72BEE8299B8E34009DD66D /* AuthPublisher.swift */,
 			);
 			path = Publisher;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 				4D8D74672990B6A000CC3F46 /* FontSize.swift in Sources */,
 				4D8D74652979444000CC3F46 /* AppleAuthManager.swift in Sources */,
 				4DCA75E6299AB189003ECE6C /* MainListView.swift in Sources */,
+				4D72BEE9299B8E34009DD66D /* AuthPublisher.swift in Sources */,
 				4D8D74562977F2E900CC3F46 /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
