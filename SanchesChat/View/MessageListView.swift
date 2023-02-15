@@ -33,15 +33,16 @@ struct MessageListView: View {
   
   private var myProfile: some View {
     HStack(spacing: 16) {
-      Image(systemName: "person.fill")
-        .fontSize(40)
-        .padding(8)
-        .background (
+      URLImageView(url: viewModel.chatUser?.profileImageUrl ?? "")
+        .withClippedFillImage(
+          width: 60,
+          height: 60,
+          clippedType: .circle)
+        .overlay (
           Circle()
             .stroke(Color(.label), lineWidth: 1)
-            .background(Circle().fill(Color._AFEEEE))
-         )
-      Text("USERNAME")
+        )
+      Text(viewModel.chatUser?.name ?? "")
         .fontSize(24, .bold)
         .foregroundColor(Color(.label))
       Spacer()
@@ -72,7 +73,7 @@ struct MessageListView: View {
                 Circle()
                   .stroke(Color(.label), lineWidth: 1)
                   .background(Circle().fill(Color._AFEEEE))
-               )
+              )
             VStack(alignment: .leading, spacing: 5) {
               Text("Username")
                 .fontSize(16, .bold)

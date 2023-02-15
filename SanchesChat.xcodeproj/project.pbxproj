@@ -18,6 +18,9 @@
 		4D72BEE9299B8E34009DD66D /* AuthPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D72BEE8299B8E34009DD66D /* AuthPublisher.swift */; };
 		4D72BEEB299B927D009DD66D /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D72BEEA299B927D009DD66D /* AppState.swift */; };
 		4D72BEED299B99BB009DD66D /* MessageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D72BEEC299B99BB009DD66D /* MessageListViewModel.swift */; };
+		4D72BEF0299CE22A009DD66D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 4D72BEEF299CE22A009DD66D /* Kingfisher */; };
+		4D72BEF3299CE281009DD66D /* URLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D72BEF2299CE281009DD66D /* URLImage.swift */; };
+		4D72BEF6299CEB96009DD66D /* WithClippedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D72BEF5299CEB96009DD66D /* WithClippedImage.swift */; };
 		4D8D742B2977D56F00CC3F46 /* SanchesChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D742A2977D56F00CC3F46 /* SanchesChatApp.swift */; };
 		4D8D742D2977D56F00CC3F46 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D742C2977D56F00CC3F46 /* LoginView.swift */; };
 		4D8D742F2977D57200CC3F46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D8D742E2977D57200CC3F46 /* Assets.xcassets */; };
@@ -44,6 +47,8 @@
 		4D72BEE8299B8E34009DD66D /* AuthPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPublisher.swift; sourceTree = "<group>"; };
 		4D72BEEA299B927D009DD66D /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		4D72BEEC299B99BB009DD66D /* MessageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewModel.swift; sourceTree = "<group>"; };
+		4D72BEF2299CE281009DD66D /* URLImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImage.swift; sourceTree = "<group>"; };
+		4D72BEF5299CEB96009DD66D /* WithClippedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithClippedImage.swift; sourceTree = "<group>"; };
 		4D8D74272977D56F00CC3F46 /* SanchesChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SanchesChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D8D742A2977D56F00CC3F46 /* SanchesChatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SanchesChatApp.swift; sourceTree = "<group>"; };
 		4D8D742C2977D56F00CC3F46 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -77,6 +82,7 @@
 				4D72BED5299B6091009DD66D /* FirebaseAuth in Frameworks */,
 				4D72BEE5299B639B009DD66D /* KakaoSDKCommon in Frameworks */,
 				4D72BED7299B6091009DD66D /* FirebaseFirestore in Frameworks */,
+				4D72BEF0299CE22A009DD66D /* Kingfisher in Frameworks */,
 				4D72BED9299B6091009DD66D /* FirebaseFirestoreSwift in Frameworks */,
 				4D72BEE7299B639B009DD66D /* KakaoSDKUser in Frameworks */,
 				4D72BEDD299B6091009DD66D /* FirebaseStorage in Frameworks */,
@@ -88,6 +94,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D72BEF1299CE254009DD66D /* CommonView */ = {
+			isa = PBXGroup;
+			children = (
+				4D8D74682990B7F500CC3F46 /* Color.swift */,
+				4D72BEF2299CE281009DD66D /* URLImage.swift */,
+			);
+			path = CommonView;
+			sourceTree = "<group>";
+		};
+		4D72BEF4299CE47F009DD66D /* ViewModifier */ = {
+			isa = PBXGroup;
+			children = (
+				4D8D74662990B6A000CC3F46 /* FontSize.swift */,
+				4D72BEF5299CEB96009DD66D /* WithClippedImage.swift */,
+			);
+			path = ViewModifier;
+			sourceTree = "<group>";
+		};
 		4D8D741E2977D56F00CC3F46 = {
 			isa = PBXGroup;
 			children = (
@@ -160,8 +184,8 @@
 			children = (
 				4D8D742C2977D56F00CC3F46 /* LoginView.swift */,
 				4DCA75E5299AB188003ECE6C /* MessageListView.swift */,
-				4D8D74662990B6A000CC3F46 /* FontSize.swift */,
-				4D8D74682990B7F500CC3F46 /* Color.swift */,
+				4D72BEF1299CE254009DD66D /* CommonView */,
+				4D72BEF4299CE47F009DD66D /* ViewModifier */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -217,6 +241,7 @@
 				4D72BEE2299B639B009DD66D /* KakaoSDKAuth */,
 				4D72BEE4299B639B009DD66D /* KakaoSDKCommon */,
 				4D72BEE6299B639B009DD66D /* KakaoSDKUser */,
+				4D72BEEF299CE22A009DD66D /* Kingfisher */,
 			);
 			productName = SanchesChat;
 			productReference = 4D8D74272977D56F00CC3F46 /* SanchesChat.app */;
@@ -249,6 +274,7 @@
 			packageReferences = (
 				4D72BED3299B6091009DD66D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				4D72BEE1299B639B009DD66D /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				4D72BEEE299CE229009DD66D /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 4D8D74282977D56F00CC3F46 /* Products */;
 			projectDirPath = "";
@@ -280,10 +306,12 @@
 				4D8D745829780C9E00CC3F46 /* FirebaseAuthManager.swift in Sources */,
 				4DCA75DE29993339003ECE6C /* FirestoreManager.swift in Sources */,
 				4D72BEEB299B927D009DD66D /* AppState.swift in Sources */,
+				4D72BEF6299CEB96009DD66D /* WithClippedImage.swift in Sources */,
 				4D8D74632979413E00CC3F46 /* AppleAuthError.swift in Sources */,
 				4DCA75D8299743B4003ECE6C /* QuerySnapshotPublisher.swift in Sources */,
 				4D8D744F2977E91400CC3F46 /* KakaoAuthManager.swift in Sources */,
 				4D8D742D2977D56F00CC3F46 /* LoginView.swift in Sources */,
+				4D72BEF3299CE281009DD66D /* URLImage.swift in Sources */,
 				4D8D746129793BC700CC3F46 /* NonceManager.swift in Sources */,
 				4D8D74692990B7F500CC3F46 /* Color.swift in Sources */,
 				4DCA75E42999534C003ECE6C /* ChatUser.swift in Sources */,
@@ -526,6 +554,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		4D72BEEE299CE229009DD66D /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -568,6 +604,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4D72BEE1299B639B009DD66D /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKUser;
+		};
+		4D72BEEF299CE22A009DD66D /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4D72BEEE299CE229009DD66D /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
