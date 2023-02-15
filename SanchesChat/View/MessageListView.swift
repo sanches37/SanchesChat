@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct MainListView: View {
-  @StateObject private var viewModel = MainListViewModel()
+struct MessageListView: View {
+  @StateObject private var viewModel = MessageListViewModel()
   @State private var profileOption = false
   
   var body: some View {
     NavigationView {
-      VStack {
+      VStack(spacing: 0) {
         myProfile
         chatList
       }
@@ -54,7 +54,6 @@ struct MainListView: View {
       Color._4169E1
         .edgesIgnoringSafeArea(.top)
     )
-    
   }
   
   private var chatList: some View {
@@ -124,6 +123,6 @@ struct MainListView: View {
 
 struct MainList_Previews: PreviewProvider {
   static var previews: some View {
-    MainListView()
+    MessageListView()
   }
 }

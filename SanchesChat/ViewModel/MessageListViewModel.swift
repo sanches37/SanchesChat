@@ -7,7 +7,7 @@
 
 import Combine
 
-class MainListViewModel: ObservableObject {
+class MessageListViewModel: ObservableObject {
   private let firebaseAuthManager = FirebaseAuthManager()
   private var cancellabel = Set<AnyCancellable>()
   

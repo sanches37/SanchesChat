@@ -17,7 +17,7 @@ struct SanchesChatApp: App {
   var body: some Scene {
     WindowGroup {
       if appState.isLogIn {
-        MainListView()
+        MessageListView()
       } else {
         LogInView()
           .onOpenURL { url in
