@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ChatUser: Encodable {
+struct ChatUser: Codable {
   let name: String
   let email: String
   let uid: String

@@ -41,7 +41,7 @@ class LogInViewModel: ObservableObject {
   func appleLogIn(user: ASAuthorization) {
     appleAuthManager.getAppleToken(user: user)
       .flatMap {
-        self .firebaseAuthManager.signInToFirebaseWithAppleToken(
+        self.firebaseAuthManager.signInToFirebaseWithAppleToken(
           token: $0,
           fullName: self.appleAuthManager.getApplFullName(user: user),
           nonce: self.nonce
@@ -74,7 +74,7 @@ class LogInViewModel: ObservableObject {
     firebaseAuthManager.currentUser()
       .compactMap { $0 }
       .flatMap { user in
-        self.firestoreManager.checkDocument(document: .users(uid: user.uid))
+        self.firestoreManager.checkDocument(document: .users(userId: user.uid))
           .flatMap {
             if $0 == false {
               let chatUser = ChatUser(
@@ -85,7 +85,7 @@ class LogInViewModel: ObservableObject {
 
               return self.firestoreManager.createDocument(
                 data: chatUser,
-                document: .users(uid: user.uid)
+                document: .users(userId: user.uid)
               )
             }
             return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
