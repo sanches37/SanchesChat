@@ -10,6 +10,11 @@ import Combine
 class MessageListViewModel: ObservableObject {
   private let firebaseAuthManager = FirebaseAuthManager()
   private var cancellabel = Set<AnyCancellable>()
+  private let userId: String
+  
+  init(userId: String) {
+    self.userId = userId
+  }
   
   func logOut() {
     firebaseAuthManager.firebaseLogOut()

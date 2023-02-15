@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct MessageListView: View {
-  @StateObject private var viewModel = MessageListViewModel()
+  @ObservedObject private var viewModel: MessageListViewModel
   @State private var profileOption = false
+  
+  init(userId: String) {
+    _viewModel = ObservedObject(wrappedValue: .init(userId: userId))
+  }
   
   var body: some View {
     NavigationView {
@@ -123,6 +127,6 @@ struct MessageListView: View {
 
 struct MainList_Previews: PreviewProvider {
   static var previews: some View {
-    MessageListView()
+    MessageListView(userId: "1234")
   }
 }
