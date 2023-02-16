@@ -61,6 +61,7 @@ class MessageListViewModel: ObservableObject {
         }
       } receiveValue: { _ in
         self.isEditProfile = false
+        self.getChatUser()
       }
       .store(in: &cancellable)
   }
