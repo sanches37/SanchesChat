@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MessageListView: View {
   @ObservedObject private var viewModel: MessageListViewModel
-  @State private var profileOption = false
+  @State private var isLogOut = false
   
   init(userId: String) {
     _viewModel = ObservedObject(wrappedValue: .init(userId: userId))
@@ -25,8 +25,8 @@ struct MessageListView: View {
     .overlay(
       newMessageButton, alignment: .bottom
     )
-    .actionSheet(isPresented: $profileOption) {
-      actionSheet
+    .alert(isPresented: $isLogOut) {
+      alert
     }
     .navigationBarHidden(true)
   }
@@ -47,9 +47,9 @@ struct MessageListView: View {
         .foregroundColor(Color(.label))
       Spacer()
       Button {
-        profileOption.toggle()
+        isLogOut.toggle()
       } label: {
-        Image(systemName: "gear")
+        Image(systemName: "rectangle.portrait.and.arrow.right")
           .fontSize(24, .bold)
           .foregroundColor(Color(.label))
       }
@@ -113,15 +113,12 @@ struct MessageListView: View {
     }
   }
   
-  private var actionSheet: ActionSheet {
-    ActionSheet(
-      title: Text("Settings"),
-      buttons: [
-        .default(Text("프로필 수정")) {
-          print("프로필") },
-        .destructive(Text("로그아웃")) {
-          viewModel.logOut() }
-      ]
+  private var alert: Alert {
+    Alert(
+      title: Text("로그아웃 하시겠습니까?"),
+      primaryButton: .default(Text("확인")) {
+        viewModel.logOut() },
+      secondaryButton: .cancel(Text("취소"))
     )
   }
 }
