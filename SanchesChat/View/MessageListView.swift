@@ -10,6 +10,8 @@ import SwiftUI
 struct MessageListView: View {
   @ObservedObject private var viewModel: MessageListViewModel
   @State private var isLogOut = false
+  @State private var isEditProfile = false
+  @State private var shouldShowImagePicker = false
   
   init(userId: String) {
     _viewModel = ObservedObject(wrappedValue: .init(userId: userId))
@@ -28,37 +30,110 @@ struct MessageListView: View {
     .alert(isPresented: $isLogOut) {
       alert
     }
+    .fullScreenCover(isPresented: $shouldShowImagePicker) {
+      ImagePicker(image: $viewModel.editImage)
+    }
     .navigationBarHidden(true)
   }
   
   private var myProfile: some View {
     HStack(spacing: 16) {
-      URLImageView(url: viewModel.chatUser?.profileImageUrl ?? "")
-        .withClippedImage(
-          width: 60,
-          height: 60,
-          clippedType: .circle)
-        .overlay (
-          Circle()
-            .stroke(Color(.label), lineWidth: 1)
-        )
-      Text(viewModel.chatUser?.name ?? "")
-        .fontSize(24, .bold)
-        .foregroundColor(Color(.label))
-      Spacer()
-      Button {
-        isLogOut.toggle()
-      } label: {
-        Image(systemName: "rectangle.portrait.and.arrow.right")
-          .fontSize(24, .bold)
-          .foregroundColor(Color(.label))
+      if isEditProfile {
+        defaultImage
+          .overlay(
+            Image(systemName: "plus")
+              .fontSize(13, .bold)
+              .foregroundColor(.black)
+              .padding(4)
+              .background(
+                Circle()
+                  .fill(Color.white)
+              )
+            , alignment: .bottomTrailing
+          )
+          .onTapGesture {
+            shouldShowImagePicker.toggle()
+          }
+      } else {
+        defaultImage
       }
+      
+      Group {
+        isEditProfile ? AnyView(editText) : AnyView(defaultText)
+      }
+      .frame(maxWidth: .infinity, alignment: .leading)
+      .fontSize(24, .bold)
+      
+      isEditProfile ? AnyView(editProfileButton) :AnyView(defaultProfileButton)
     }
     .padding()
+    .foregroundColor(.black)
     .background(
       Color.royalBlue
         .edgesIgnoringSafeArea(.top)
     )
+  }
+  
+  private var defaultImage: some View {
+    Group {
+      if let image = viewModel.editImage {
+        Image(uiImage: image)
+          .resizable()
+      } else {
+        URLImageView(url: viewModel.chatUser?.profileImageUrl ?? "")
+      }
+    }
+    .withClippedImage(
+      width: 60,
+      height: 60,
+      clippedType: .circle)
+    .overlay (
+      Circle()
+        .stroke(.black, lineWidth: 1)
+    )
+  }
+  
+  private var defaultText: some View {
+    Text(viewModel.chatUser?.name ?? "")
+      .lineLimit(1)
+      .offset(y: 0.5)
+  }
+  
+  private var editText: some View {
+    TextField("", text: $viewModel.editName)
+  }
+  
+  private var defaultProfileButton: some View {
+    HStack(spacing: 16) {
+      Button {
+        isEditProfile = true
+      } label: {
+        Image(systemName: "gear")
+      }
+      Button {
+        isLogOut.toggle()
+      } label: {
+        Image(systemName: "rectangle.portrait.and.arrow.right")
+      }
+    }
+    .fontSize(24, .bold)
+  }
+  
+  private var editProfileButton: some View {
+    HStack(spacing: 16) {
+      Button {
+        viewModel.editImage = nil
+        isEditProfile = false
+      } label: {
+        Text("취소")
+      }
+      Button {
+        
+      } label: {
+        Text("저장")
+      }
+    }
+    .fontSize(20, .bold)
   }
   
   private var chatList: some View {

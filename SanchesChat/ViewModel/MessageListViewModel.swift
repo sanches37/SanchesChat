@@ -6,6 +6,7 @@
 //
 
 import Combine
+import SwiftUI
 
 class MessageListViewModel: ObservableObject {
   private let firebaseAuthManager = FirebaseAuthManager()
@@ -14,6 +15,8 @@ class MessageListViewModel: ObservableObject {
   private let userId: String
   
   @Published private(set) var chatUser: ChatUser?
+  @Published var editName = ""
+  @Published var editImage: UIImage?
   
   init(userId: String) {
     self.userId = userId
@@ -34,9 +37,11 @@ class MessageListViewModel: ObservableObject {
         }
       } receiveValue: { result in
         self.chatUser = result
+        self.editName = result.name
       }
       .store(in: &cancellable)
   }
+  
   
   func logOut() {
     firebaseAuthManager.firebaseLogOut()
