@@ -118,7 +118,6 @@ struct MessageListView: View {
       title: Text("Settings"),
       buttons: [
         .default(Text("프로필 수정")) {
-          viewModel.dd()
           print("프로필") },
         .destructive(Text("로그아웃")) {
           viewModel.logOut() }
