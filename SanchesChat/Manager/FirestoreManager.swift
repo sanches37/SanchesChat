@@ -30,7 +30,7 @@ struct FirestoreManager {
   func createDocument<T: Encodable>(data: T, document: FirestoreDocument) -> AnyPublisher<Void, Error> {
     return Future<Void, FirestoreError> { promise in
       do {
-        try document.path.setData(from: data) { error in
+        try document.path.setData(from: data, merge: true) { error in
           if let error = error {
             promise(.failure(.unknown(description: error.localizedDescription)))
           }

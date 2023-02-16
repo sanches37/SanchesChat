@@ -34,7 +34,7 @@ struct MessageListView: View {
   private var myProfile: some View {
     HStack(spacing: 16) {
       URLImageView(url: viewModel.chatUser?.profileImageUrl ?? "")
-        .withClippedFillImage(
+        .withClippedImage(
           width: 60,
           height: 60,
           clippedType: .circle)
@@ -56,7 +56,7 @@ struct MessageListView: View {
     }
     .padding()
     .background(
-      Color._4169E1
+      Color.royalBlue
         .edgesIgnoringSafeArea(.top)
     )
   }
@@ -72,7 +72,7 @@ struct MessageListView: View {
               .background (
                 Circle()
                   .stroke(Color(.label), lineWidth: 1)
-                  .background(Circle().fill(Color._AFEEEE))
+                  .background(Circle().fill(Color.paleTurquoise))
               )
             VStack(alignment: .leading, spacing: 5) {
               Text("Username")
@@ -80,7 +80,7 @@ struct MessageListView: View {
                 .foregroundColor(Color(.label))
               Text("Message sent to user")
                 .fontSize(14)
-                .foregroundColor(._D3D3D3)
+                .foregroundColor(.lightGray)
             }
             Spacer()
             Text("22d")
@@ -103,11 +103,11 @@ struct MessageListView: View {
           .fontSize(20, .bold)
         Spacer()
       }
-      .foregroundColor(._FFFFFF)
+      .foregroundColor(.white)
       .padding(.vertical)
       .background(
         RoundedRectangle(cornerRadius: 32)
-          .foregroundColor(._BC8F8F)
+          .foregroundColor(.rosyBrown)
       )
       .padding(.horizontal)
     }
@@ -118,6 +118,7 @@ struct MessageListView: View {
       title: Text("Settings"),
       buttons: [
         .default(Text("프로필 수정")) {
+          viewModel.dd()
           print("프로필") },
         .destructive(Text("로그아웃")) {
           viewModel.logOut() }

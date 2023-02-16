@@ -23,13 +23,13 @@ struct LogInView: View {
             Text("LogIn with Kakao")
               .bold()
               .fontSize(20)
-              .foregroundColor(._000000)
+              .foregroundColor(.black)
           }
           .frame(height: 55)
           .frame(maxWidth: .infinity)
           .background(
             RoundedRectangle(cornerRadius: 5)
-              .foregroundColor(._FEE500)
+              .foregroundColor(.goldenYellow)
           )
           .padding(.horizontal, 30)
           

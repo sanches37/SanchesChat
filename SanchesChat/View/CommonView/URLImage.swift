@@ -14,7 +14,7 @@ struct URLImageView: View {
     KFImage(URL(string: url))
       .placeholder {
         GeometryReader { geometry  in
-          Rectangle().fill(Color._AFEEEE)
+          Rectangle().fill(Color.paleTurquoise)
             .overlay(
               Image(systemName: "person.fill")
                 .resizable()

@@ -10,7 +10,7 @@ import Combine
 class MessageListViewModel: ObservableObject {
   private let firebaseAuthManager = FirebaseAuthManager()
   private let firestoreManager = FirestoreManager()
-  private var cancellabel = Set<AnyCancellable>()
+  private var cancellable = Set<AnyCancellable>()
   private let userId: String
   
   @Published private(set) var chatUser: ChatUser?
@@ -35,7 +35,7 @@ class MessageListViewModel: ObservableObject {
       } receiveValue: { result in
         self.chatUser = result
       }
-      .store(in: &cancellabel)
+      .store(in: &cancellable)
   }
   
   func logOut() {
@@ -48,6 +48,6 @@ class MessageListViewModel: ObservableObject {
           debugPrint(error.localizedDescription)
         }
       } receiveValue: { _ in }
-      .store(in: &cancellabel)
+      .store(in: &cancellable)
   }
 }
