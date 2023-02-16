@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4D469F26299DF2950010BEC9 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D469F25299DF2950010BEC9 /* ImagePicker.swift */; };
+		4D469F2A299E475C0010BEC9 /* FirebaseStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D469F29299E475C0010BEC9 /* FirebaseStorageManager.swift */; };
+		4D469F2C299E49A60010BEC9 /* FirebaseStorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D469F2B299E49A60010BEC9 /* FirebaseStorageError.swift */; };
 		4D72BED5299B6091009DD66D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4D72BED4299B6091009DD66D /* FirebaseAuth */; };
 		4D72BED7299B6091009DD66D /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4D72BED6299B6091009DD66D /* FirebaseFirestore */; };
 		4D72BED9299B6091009DD66D /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4D72BED8299B6091009DD66D /* FirebaseFirestoreSwift */; };
@@ -46,6 +48,8 @@
 
 /* Begin PBXFileReference section */
 		4D469F25299DF2950010BEC9 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		4D469F29299E475C0010BEC9 /* FirebaseStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageManager.swift; sourceTree = "<group>"; };
+		4D469F2B299E49A60010BEC9 /* FirebaseStorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageError.swift; sourceTree = "<group>"; };
 		4D72BEE8299B8E34009DD66D /* AuthPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPublisher.swift; sourceTree = "<group>"; };
 		4D72BEEA299B927D009DD66D /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		4D72BEEC299B99BB009DD66D /* MessageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewModel.swift; sourceTree = "<group>"; };
@@ -167,6 +171,7 @@
 				4D8D746029793BC700CC3F46 /* NonceManager.swift */,
 				4D8D74642979444000CC3F46 /* AppleAuthManager.swift */,
 				4DCA75DD29993339003ECE6C /* FirestoreManager.swift */,
+				4D469F29299E475C0010BEC9 /* FirebaseStorageManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -178,6 +183,7 @@
 				4D8D745929780CD300CC3F46 /* FirebaseAuthError.swift */,
 				4D8D74622979413E00CC3F46 /* AppleAuthError.swift */,
 				4DCA75D9299745CC003ECE6C /* FirestoreError.swift */,
+				4D469F2B299E49A60010BEC9 /* FirebaseStorageError.swift */,
 			);
 			path = Error;
 			sourceTree = "<group>";
@@ -316,12 +322,14 @@
 				4D8D742D2977D56F00CC3F46 /* LoginView.swift in Sources */,
 				4D72BEF3299CE281009DD66D /* URLImage.swift in Sources */,
 				4D8D746129793BC700CC3F46 /* NonceManager.swift in Sources */,
+				4D469F2C299E49A60010BEC9 /* FirebaseStorageError.swift in Sources */,
 				4D8D74692990B7F500CC3F46 /* Color.swift in Sources */,
 				4DCA75E42999534C003ECE6C /* ChatUser.swift in Sources */,
 				4D8D745A29780CD300CC3F46 /* FirebaseAuthError.swift in Sources */,
 				4D469F26299DF2950010BEC9 /* ImagePicker.swift in Sources */,
 				4DCA75DA299745CD003ECE6C /* FirestoreError.swift in Sources */,
 				4D8D74522977E9B600CC3F46 /* KakaoAuthError.swift in Sources */,
+				4D469F2A299E475C0010BEC9 /* FirebaseStorageManager.swift in Sources */,
 				4D8D742B2977D56F00CC3F46 /* SanchesChatApp.swift in Sources */,
 				4D8D74672990B6A000CC3F46 /* FontSize.swift in Sources */,
 				4D8D74652979444000CC3F46 /* AppleAuthManager.swift in Sources */,

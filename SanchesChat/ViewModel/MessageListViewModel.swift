@@ -42,7 +42,6 @@ class MessageListViewModel: ObservableObject {
       .store(in: &cancellable)
   }
   
-  
   func logOut() {
     firebaseAuthManager.firebaseLogOut()
       .sink { completion in
