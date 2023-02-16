@@ -10,7 +10,6 @@ import SwiftUI
 struct MessageListView: View {
   @ObservedObject private var viewModel: MessageListViewModel
   @State private var isLogOut = false
-  @State private var isEditProfile = false
   @State private var shouldShowImagePicker = false
   
   init(userId: String) {
@@ -38,7 +37,7 @@ struct MessageListView: View {
   
   private var myProfile: some View {
     HStack(spacing: 16) {
-      if isEditProfile {
+      if viewModel.isEditProfile {
         defaultImage
           .overlay(
             Image(systemName: "plus")
@@ -59,12 +58,12 @@ struct MessageListView: View {
       }
       
       Group {
-        isEditProfile ? AnyView(editText) : AnyView(defaultText)
+        viewModel.isEditProfile ? AnyView(editText) : AnyView(defaultText)
       }
       .frame(maxWidth: .infinity, alignment: .leading)
       .fontSize(24, .bold)
       
-      isEditProfile ? AnyView(editProfileButton) :AnyView(defaultProfileButton)
+      viewModel.isEditProfile ? AnyView(editProfileButton) :AnyView(defaultProfileButton)
     }
     .padding()
     .foregroundColor(.black)
@@ -106,7 +105,7 @@ struct MessageListView: View {
   private var defaultProfileButton: some View {
     HStack(spacing: 16) {
       Button {
-        isEditProfile = true
+        viewModel.isEditProfile = true
       } label: {
         Image(systemName: "gear")
       }
@@ -123,12 +122,12 @@ struct MessageListView: View {
     HStack(spacing: 16) {
       Button {
         viewModel.editImage = nil
-        isEditProfile = false
+        viewModel.isEditProfile = false
       } label: {
         Text("취소")
       }
       Button {
-        
+        viewModel.updateEditProfile()
       } label: {
         Text("저장")
       }

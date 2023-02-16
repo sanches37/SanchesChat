@@ -11,12 +11,14 @@ import SwiftUI
 class MessageListViewModel: ObservableObject {
   private let firebaseAuthManager = FirebaseAuthManager()
   private let firestoreManager = FirestoreManager()
+  private let firebaseStorageManager = FirebaseStorageManager()
   private var cancellable = Set<AnyCancellable>()
   private let userId: String
   
   @Published private(set) var chatUser: ChatUser?
   @Published var editName = ""
   @Published var editImage: UIImage?
+  @Published var isEditProfile = false
   
   init(userId: String) {
     self.userId = userId
@@ -41,6 +43,27 @@ class MessageListViewModel: ObservableObject {
       }
       .store(in: &cancellable)
   }
+
+  func updateEditProfile() {
+    let imageData = editImage?.jpegData(compressionQuality: 0.5)
+    firebaseStorageManager.updateImageToStorage(imageData: imageData, path: userId)
+      .map { $0 != nil ? $0 : self.chatUser?.profileImageUrl }
+      .flatMap { imageURL -> AnyPublisher<Void, Error> in
+        let data = ["name": self.editName, "profileImageUrl": imageURL]
+        return self.firestoreManager.createDocument(data: data, document: .users(userId: self.userId))
+      }
+      .sink { completion in
+        switch completion {
+        case .finished:
+          debugPrint("updateEditProfile finished")
+        case let .failure(error):
+          debugPrint(error.localizedDescription)
+        }
+      } receiveValue: { _ in
+        self.isEditProfile = false
+      }
+      .store(in: &cancellable)
+  }
   
   func logOut() {
     firebaseAuthManager.firebaseLogOut()
@@ -51,7 +74,8 @@ class MessageListViewModel: ObservableObject {
         case let .failure(error):
           debugPrint(error.localizedDescription)
         }
-      } receiveValue: { _ in }
+      } receiveValue: { _ in
+      }
       .store(in: &cancellable)
   }
 }
