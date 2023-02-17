@@ -65,6 +65,30 @@ struct FirestoreManager {
     .eraseToAnyPublisher()
   }
   
+  func getCollection<T: Decodable>(_ type: T.Type, collection: FirestoreCollecion) -> AnyPublisher<[T], Error> {
+    return Future<[T], FirestoreError> { promise in
+      collection.path.getDocuments { snapshot, error in
+        if let error = error {
+          promise(.failure(.unknown(description: error.localizedDescription)))
+        }
+        guard let snapshot = snapshot?.documents else {
+          promise(.failure(.dataNotfound))
+          return
+        }
+        do {
+          let dataArray = try snapshot.compactMap {
+            try $0.data(as: type)
+          }
+          promise(.success(dataArray))
+        } catch {
+          promise(.failure(.decodingFailed))
+        }
+      }
+    }
+    .mapError { $0 as Error }
+    .eraseToAnyPublisher()
+  }
+  
   func observeData<T: Decodable>(type: T, query: Query) -> AnyPublisher<[T], Error> {
     Publishers.QuerySnapshotPublisher<T>(query: query)
       .mapError{ $0 as Error }
@@ -81,6 +105,19 @@ enum FirestoreDocument {
     switch self {
     case let .users(userId: userId):
       return Self.db.collection("users").document(userId)
+    }
+  }
+}
+
+enum FirestoreCollecion {
+  case users
+  
+  static let db = Firestore.firestore()
+  
+  var path: CollectionReference {
+    switch self {
+    case .users:
+      return Self.db.collection("users")
     }
   }
 }

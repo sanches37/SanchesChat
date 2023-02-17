@@ -11,6 +11,7 @@ struct MessageListView: View {
   @StateObject private var viewModel: MessageListViewModel
   @State private var shouldShowLogOutAlert = false
   @State private var shouldShowImagePicker = false
+  @State private var shouldShowNewMassageView = false
   
   init(userId: String) {
     _viewModel = StateObject(wrappedValue: .init(userId: userId))
@@ -26,12 +27,6 @@ struct MessageListView: View {
     .overlay(
       newMessageButton, alignment: .bottom
     )
-    .alert(isPresented: $shouldShowLogOutAlert) {
-      alert
-    }
-    .fullScreenCover(isPresented: $shouldShowImagePicker) {
-      ImagePicker(image: $viewModel.editImage)
-    }
     .navigationBarHidden(true)
   }
   
@@ -71,6 +66,12 @@ struct MessageListView: View {
       Color.royalBlue
         .edgesIgnoringSafeArea(.top)
     )
+    .alert(isPresented: $shouldShowLogOutAlert) {
+      alert
+    }
+    .fullScreenCover(isPresented: $shouldShowImagePicker) {
+      ImagePicker(image: $viewModel.editImage)
+    }
   }
   
   private var defaultImage: some View {
@@ -169,6 +170,7 @@ struct MessageListView: View {
   
   private var newMessageButton: some View {
     Button {
+      shouldShowNewMassageView.toggle()
     } label: {
       HStack {
         Spacer()
@@ -183,6 +185,9 @@ struct MessageListView: View {
           .foregroundColor(.rosyBrown)
       )
       .padding(.horizontal)
+    }
+    .fullScreenCover(isPresented: $shouldShowNewMassageView) {
+      NewMessageView()
     }
   }
   
