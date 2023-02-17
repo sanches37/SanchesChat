@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MessageListView: View {
   @ObservedObject private var viewModel: MessageListViewModel
-  @State private var isLogOut = false
+  @State private var shouldShowLogOutAlert = false
   @State private var shouldShowImagePicker = false
   
   init(userId: String) {
@@ -26,7 +26,7 @@ struct MessageListView: View {
     .overlay(
       newMessageButton, alignment: .bottom
     )
-    .alert(isPresented: $isLogOut) {
+    .alert(isPresented: $shouldShowLogOutAlert) {
       alert
     }
     .fullScreenCover(isPresented: $shouldShowImagePicker) {
@@ -110,7 +110,7 @@ struct MessageListView: View {
         Image(systemName: "gear")
       }
       Button {
-        isLogOut.toggle()
+        shouldShowLogOutAlert.toggle()
       } label: {
         Image(systemName: "rectangle.portrait.and.arrow.right")
       }
@@ -121,8 +121,7 @@ struct MessageListView: View {
   private var editProfileButton: some View {
     HStack(spacing: 16) {
       Button {
-        viewModel.editImage = nil
-        viewModel.isEditProfile = false
+        viewModel.cancelEditProfile()
       } label: {
         Text("취소")
       }

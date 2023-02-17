@@ -66,6 +66,12 @@ class MessageListViewModel: ObservableObject {
       .store(in: &cancellable)
   }
   
+  func cancelEditProfile() {
+    editImage = nil
+    editName = chatUser?.name ?? ""
+    isEditProfile = false
+  }
+  
   func logOut() {
     firebaseAuthManager.firebaseLogOut()
       .sink { completion in
@@ -75,8 +81,7 @@ class MessageListViewModel: ObservableObject {
         case let .failure(error):
           debugPrint(error.localizedDescription)
         }
-      } receiveValue: { _ in
-      }
+      } receiveValue: { _ in }
       .store(in: &cancellable)
   }
 }
