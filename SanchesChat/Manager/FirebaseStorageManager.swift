@@ -10,13 +10,8 @@ import Combine
 import FirebaseStorage
 
 class FirebaseStorageManager: ObservableObject {
-  func updateImageToStorage(imageData: Data?, path: String) -> AnyPublisher<String?, Error> {
-    return Future<String?, FirebaseStorageError> { promise in
-      guard let imageData = imageData else {
-        promise(.success(nil))
-        return
-      }
-      
+  func updateImageToStorage(imageData: Data, path: String) -> AnyPublisher<String, Error> {
+    return Future<String, FirebaseStorageError> { promise in
       let ref = Storage.storage().reference(withPath: path)
       ref.putData(imageData) { _, error in
         if let error = error {

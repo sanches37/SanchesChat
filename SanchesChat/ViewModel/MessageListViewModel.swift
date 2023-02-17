@@ -30,24 +30,22 @@ class MessageListViewModel: ObservableObject {
       ChatUser.self,
       document: .users(userId: userId)
     )
-      .sink { completion in
-        switch completion {
-        case .finished:
-          debugPrint("getChatUser finished")
-        case let .failure(error):
-          debugPrint(error.localizedDescription)
-        }
-      } receiveValue: { result in
-        self.chatUser = result
-        self.editName = result.name
+    .sink { completion in
+      switch completion {
+      case .finished:
+        debugPrint("getChatUser finished")
+      case let .failure(error):
+        debugPrint(error.localizedDescription)
       }
-      .store(in: &cancellable)
+    } receiveValue: { result in
+      self.chatUser = result
+      self.editName = result.name
+    }
+    .store(in: &cancellable)
   }
-
+  
   func updateEditProfile() {
-    let imageData = editImage?.jpegData(compressionQuality: 0.5)
-    firebaseStorageManager.updateImageToStorage(imageData: imageData, path: userId)
-      .map { $0 != nil ? $0 : self.chatUser?.profileImageUrl }
+    checkEditImage()
       .flatMap { imageURL -> AnyPublisher<Void, Error> in
         let data = ["name": self.editName, "profileImageUrl": imageURL]
         return self.firestoreManager.createDocument(data: data, document: .users(userId: self.userId))
@@ -64,6 +62,17 @@ class MessageListViewModel: ObservableObject {
         self.getChatUser()
       }
       .store(in: &cancellable)
+  }
+  
+  private func checkEditImage() -> AnyPublisher<String?, Error> {
+    if let image = editImage,
+       let imageData = image.jpegData(compressionQuality: 0.5){
+      return firebaseStorageManager.updateImageToStorage(imageData: imageData, path: userId)
+        .map { Optional($0) }
+        .eraseToAnyPublisher()
+    } else {
+      return Just(chatUser?.profileImageUrl).setFailureType(to: Error.self).eraseToAnyPublisher()
+    }
   }
   
   func cancelEditProfile() {

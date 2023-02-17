@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct MessageListView: View {
-  @ObservedObject private var viewModel: MessageListViewModel
+  @StateObject private var viewModel: MessageListViewModel
   @State private var shouldShowLogOutAlert = false
   @State private var shouldShowImagePicker = false
   
   init(userId: String) {
-    _viewModel = ObservedObject(wrappedValue: .init(userId: userId))
+    _viewModel = StateObject(wrappedValue: .init(userId: userId))
   }
   
   var body: some View {
