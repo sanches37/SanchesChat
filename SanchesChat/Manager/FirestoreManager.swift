@@ -46,20 +46,7 @@ struct FirestoreManager {
   
   func getDocument<T: Decodable>(_ type: T.Type, document: FirestoreDocument) -> AnyPublisher<T, Error> {
     return Future<T, FirestoreError> { promise in
-      document.path.getDocument { snapShot, error in
-        if let error = error {
-          promise(.failure(.unknown(description: error.localizedDescription)))
-        }
-        do {
-          guard let data = try snapShot?.data(as: type) else {
-            promise(.failure(.dataNotfound))
-            return
-          }
-          promise(.success(data))
-        } catch {
-          promise(.failure(.decodingFailed))
-        }
-      }
+      document.path.getDocument { promise(document.getProcess($0, $1)) }
     }
     .mapError { $0 as Error }
     .eraseToAnyPublisher()
@@ -67,30 +54,14 @@ struct FirestoreManager {
   
   func getCollection<T: Decodable>(_ type: T.Type, collection: FirestoreCollecion) -> AnyPublisher<[T], Error> {
     return Future<[T], FirestoreError> { promise in
-      collection.path.getDocuments { snapshot, error in
-        if let error = error {
-          promise(.failure(.unknown(description: error.localizedDescription)))
-        }
-        guard let snapshot = snapshot?.documents else {
-          promise(.failure(.dataNotfound))
-          return
-        }
-        do {
-          let dataArray = try snapshot.compactMap {
-            try $0.data(as: type)
-          }
-          promise(.success(dataArray))
-        } catch {
-          promise(.failure(.decodingFailed))
-        }
-      }
+      collection.path.getDocuments { promise(collection.getProcess(type, $0, $1)) }
     }
     .mapError { $0 as Error }
     .eraseToAnyPublisher()
   }
   
-  func observeData<T: Decodable>(type: T, query: Query) -> AnyPublisher<[T], Error> {
-    Publishers.QuerySnapshotPublisher<T>(query: query)
+  func observeData<T: Decodable>(_ type: T.Type, query: FirestoreCollecion) -> AnyPublisher<[T], Error> {
+    Publishers.QuerySnapshotPublisher(query: query)
       .mapError{ $0 as Error }
       .eraseToAnyPublisher()
   }
@@ -107,6 +78,22 @@ enum FirestoreDocument {
       return Self.db.collection("users").document(userId)
     }
   }
+  
+  func getProcess<T: Decodable>(
+    _ snapshot: DocumentSnapshot?,
+    _ error: Error?) -> Result<T, FirestoreError> {
+      if let error = error {
+        return .failure(.unknown(description: error.localizedDescription))
+      }
+      do {
+        guard let data = try snapshot?.data(as: T.self) else {
+          return .failure(.dataNotfound)
+        }
+        return .success(data)
+      } catch {
+        return .failure(.decodingFailed)
+      }
+    }
 }
 
 enum FirestoreCollecion {
@@ -120,4 +107,24 @@ enum FirestoreCollecion {
       return Self.db.collection("users")
     }
   }
+  
+  func getProcess<T: Decodable>(
+    _ type: T.Type,
+    _ snapshot: QuerySnapshot?,
+    _ error: Error?) -> Result<[T], FirestoreError> {
+      if let error = error {
+        return .failure(.unknown(description: error.localizedDescription))
+      }
+      guard let snapshot = snapshot?.documents else {
+        return .failure(.dataNotfound)
+      }
+      do {
+        let dataArray = try snapshot.compactMap {
+          try $0.data(as: T.self)
+        }
+        return .success(dataArray)
+      } catch {
+        return .failure(.decodingFailed)
+      }
+    }
 }

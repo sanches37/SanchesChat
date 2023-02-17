@@ -14,7 +14,7 @@ extension Publishers {
     typealias Output = [T]
     typealias Failure = FirestoreError
     
-    let query: Query
+    let query: FirestoreCollecion
     
     func receive<S>(subscriber: S) where S : Subscriber, FirestoreError == S.Failure, [T] == S.Input {
       let querySnapshotSubscription = QuerySnapShotSubscription(subscriber: subscriber, query: query)
@@ -26,22 +26,13 @@ extension Publishers {
     private var subscriber: S?
     private var listener: ListenerRegistration?
     
-    init(subscriber: S, query: Query) {
-      self.listener = query.addSnapshotListener { snapshot, error in
-        if let error = error {
-          subscriber.receive(completion: .failure(.unknown(description: error.localizedDescription)))
-        }
-        guard let snapshot = snapshot?.documents else {
-          subscriber.receive(completion: .failure(.dataNotfound))
-          return
-        }
-        do {
-          let dataArray = try snapshot.compactMap {
-            try $0.data(as: T.self)
-          }
-          _ = subscriber.receive(dataArray)
-        } catch {
-          subscriber.receive(completion: .failure(.decodingFailed))
+    init(subscriber: S, query: FirestoreCollecion) {
+      self.listener = query.path.addSnapshotListener {
+        switch query.getProcess(T.self, $0, $1) {
+        case let .success(result):
+          _ = subscriber.receive(result)
+        case let .failure(error):
+          subscriber.receive(completion: .failure(error))
         }
       }
     }
