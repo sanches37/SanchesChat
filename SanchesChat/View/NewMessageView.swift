@@ -10,10 +10,15 @@ import SwiftUI
 struct NewMessageView: View {
   @ObservedObject private var viewModel = NewMessageViewModel()
   @Environment(\.presentationMode) var presentationMode
-    var body: some View {
-      NavigationView {
-        ScrollView {
-          ForEach(viewModel.users, id: \.self.uid) { user in
+  let didSelectUser: (ChatUser) -> Void
+  var body: some View {
+    NavigationView {
+      ScrollView {
+        ForEach(viewModel.users, id: \.self.uid) { user in
+          Button {
+            presentationMode.wrappedValue.dismiss()
+            didSelectUser(user)
+          } label: {
             HStack(spacing: 16) {
               URLImageView(url: user.profileImageUrl ?? "")
                 .withClippedImage(
@@ -29,25 +34,27 @@ struct NewMessageView: View {
                 .lineLimit(1)
               Spacer()
             }
+            .foregroundColor(.black)
             .padding(.horizontal)
           }
         }
-        .navigationTitle("New Message")
-        .toolbar {
-          ToolbarItem(placement: .navigationBarLeading) {
-            Button {
-              presentationMode.wrappedValue.dismiss()
-            } label: {
-              Text("Cancel")
-            }
+      }
+      .navigationTitle("새 메시지 보내기")
+      .toolbar {
+        ToolbarItem(placement: .navigationBarLeading) {
+          Button {
+            presentationMode.wrappedValue.dismiss()
+          } label: {
+            Text("Cancel")
           }
         }
       }
     }
+  }
 }
 
 struct NewMessageView_Previews: PreviewProvider {
-    static var previews: some View {
-        NewMessageView()
-    }
+  static var previews: some View {
+    NewMessageView { _ in }
+  }
 }
