@@ -16,16 +16,13 @@ struct SanchesChatApp: App {
   
   var body: some Scene {
     WindowGroup {
-      if let userId = appState.userId {
-        MessageListView(userId: userId)
-      } else {
-        LogInView()
-          .onOpenURL { url in
-            if AuthApi.isKakaoTalkLoginUrl(url) {
-              _ = AuthController.handleOpenUrl(url: url)
-            }
+      ContentView()
+        .environmentObject(appState)
+        .onOpenURL { url in
+          if AuthApi.isKakaoTalkLoginUrl(url) {
+            _ = AuthController.handleOpenUrl(url: url)
           }
-      }
+        }
     }
   }
   
