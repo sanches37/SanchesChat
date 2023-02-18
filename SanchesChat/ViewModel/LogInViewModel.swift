@@ -14,7 +14,6 @@ class LogInViewModel: ObservableObject {
   private let appleAuthManager = AppleAuthManager()
   private let firebaseAuthManager = FirebaseAuthManager()
   private let nonceManager = NonceManager()
-  private let firestoreManager = FirestoreManager()
   private var cancellable = Set<AnyCancellable>()
   @Published var nonce = ""
   
@@ -32,9 +31,7 @@ class LogInViewModel: ObservableObject {
         case .failure(let error):
           debugPrint(error.localizedDescription)
         }
-      } receiveValue: { _ in
-        self.createUser()
-      }
+      } receiveValue: { _ in }
       .store(in: &cancellable)
   }
   
@@ -54,9 +51,7 @@ class LogInViewModel: ObservableObject {
         case .failure(let error):
           debugPrint(error.localizedDescription)
         }
-      } receiveValue: { _ in
-        self.createUser()
-      }
+      } receiveValue: { _ in }
       .store(in: &cancellable)
   }
   
@@ -68,37 +63,5 @@ class LogInViewModel: ObservableObject {
   
   func getNonce() {
     self.nonce = nonceManager.randomNonceString()
-  }
-  
-  private func createUser() {
-    firebaseAuthManager.currentUser()
-      .compactMap { $0 }
-      .flatMap { user in
-        self.firestoreManager.checkDocument(document: .users(userId: user.uid))
-          .flatMap {
-            if $0 == false {
-              let chatUser = ChatUser(
-                name: user.displayName ?? "",
-                email: user.email ?? "",
-                uid: user.uid,
-                profileImageUrl: user.photoURL?.description)
-
-              return self.firestoreManager.createDocument(
-                data: chatUser,
-                document: .users(userId: user.uid)
-              )
-            }
-            return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
-          }
-      }
-      .sink { completion in
-        switch completion {
-        case .finished:
-          debugPrint("createUser finished")
-        case .failure(let error):
-          debugPrint(error.localizedDescription)
-        }
-      } receiveValue: { _ in }
-      .store(in: &cancellable)
   }
 }

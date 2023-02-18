@@ -22,7 +22,41 @@ class MessageListViewModel: ObservableObject {
   
   init(userId: String) {
     self.userId = userId
-    getChatUser()
+    checkFirstUser()
+  }
+  
+  private func checkFirstUser() {
+    firebaseAuthManager.currentUser()
+      .compactMap { $0 }
+      .flatMap { user in
+        self.firestoreManager.checkDocument(document: .users(userId: user.uid))
+          .flatMap {
+            if $0 == false {
+              let chatUser = ChatUser(
+                name: user.displayName ?? "",
+                email: user.email ?? "",
+                uid: user.uid,
+                profileImageUrl: user.photoURL?.description)
+              
+              return self.firestoreManager.createDocument(
+                data: chatUser,
+                document: .users(userId: user.uid)
+              )
+            }
+            return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
+          }
+      }
+      .sink { completion in
+        switch completion {
+        case .finished:
+          debugPrint("createUser finished")
+        case .failure(let error):
+          debugPrint(error.localizedDescription)
+        }
+      } receiveValue: { _ in
+        self.getChatUser()
+      }
+      .store(in: &cancellable)
   }
   
   private func getChatUser() {
