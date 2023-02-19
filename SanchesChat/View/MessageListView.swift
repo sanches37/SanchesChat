@@ -38,6 +38,7 @@ struct MessageListView: View {
       )
     }
     .navigationBarHidden(true)
+    .navigationViewStyle(.stack)
   }
   
   private var myProfile: some View {

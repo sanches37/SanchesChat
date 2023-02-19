@@ -5,31 +5,64 @@
 //  Created by tae hoon park on 2023/02/19.
 //
 
+import Foundation
 import Combine
 
 class ChatLogViewModel: ObservableObject {
   private let firestoreManager = FirestoreManager()
+  private let firebaseAuthManager = FirebaseAuthManager()
   private var cancellable = Set<AnyCancellable>()
   
+  @Published var chatMessage: [ChatMessage] = []
   @Published var chatUser: ChatUser?
+  @Published var currentUserId: String?
   @Published var chatText = ""
   
   init(chatUser: ChatUser?) {
     self.chatUser = chatUser
+    observeMessage()
   }
   
-  func updateSendMessage(fromId: String?) {
-    guard let fromId = fromId,
-    let toId = chatUser?.uid else { return }
-    let data = ChatMessage(fromId: fromId, toId: toId, text: self.chatText)
+  private func observeMessage() {
+    guard let toId = chatUser?.uid else { return }
+    
+    $currentUserId
+      .compactMap { $0 }
+      .flatMap { [weak self] fromId -> AnyPublisher<[ChatMessage], Error> in
+        guard let self = self else {
+          return Fail(error: CommonError.weakSelfNotfound).eraseToAnyPublisher()
+        }
+        return self.firestoreManager.observeCollection(
+          ChatMessage.self,
+          query: .fetchMessage(fromId: fromId, toId: toId)
+        )
+      }
+      .sink { completion in
+        switch completion {
+        case .finished:
+          debugPrint("observeMessage finished")
+        case let .failure(error):
+          debugPrint(error.localizedDescription)
+        }
+      } receiveValue: { [weak self] result in
+        self?.chatMessage = result
+      }
+      .store(in: &cancellable)
+  }
+  
+  func updateSendMessage() {
+    guard let fromId = currentUserId,
+          let toId = chatUser?.uid else { return }
+    let fromData = ChatMessage(messageSource: .from, text: self.chatText, createdAt: Date())
+    let toData = ChatMessage(messageSource: .to, text: self.chatText, createdAt: Date())
     
     Publishers.Zip(
       firestoreManager.createDocument(
-        data: data,
+        data: fromData,
         document: .sendMessage(fromId: fromId, toId: toId)),
       firestoreManager.createDocument(
-        data: data,
-        document: .receiveMessage(toId: toId, fromId: fromId))
+        data: toData,
+        document: .sendMessage(fromId: toId, toId: fromId))
     )
     .sink { completion in
       switch completion {

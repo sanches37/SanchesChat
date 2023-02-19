@@ -8,10 +8,14 @@
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-struct ChatMessage: Codable {
+struct ChatMessage: Codable, Identifiable {
   @DocumentID var id: String?
-  let fromId: String
-  let toId: String
+  let messageSource: MessageSourceType
   let text: String
-  var createdAt: Date = Date()
+  let createdAt: Date
+}
+
+enum MessageSourceType: String, Codable {
+  case from
+  case to
 }

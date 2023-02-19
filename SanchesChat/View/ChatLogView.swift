@@ -23,21 +23,40 @@ struct ChatLogView: View {
     }
     .navigationTitle(viewModel.chatUser?.name ?? "")
     .navigationBarTitleDisplayMode(.inline)
+    .onAppear {
+      viewModel.currentUserId = appState.userId
+    }
   }
   
   private var messageLog: some View {
     ScrollView {
-      ForEach(0..<10) { num in
-        HStack {
-          Spacer()
-          Text("frke message for now")
-            .fontSize(16)
-            .foregroundColor(.white)
-            .padding()
-            .background(
-              RoundedRectangle(cornerRadius: 8)
-                .fill(.blue)
-            )
+      ForEach(viewModel.chatMessage) { message in
+        VStack {
+          if message.messageSource == .from {
+            HStack {
+              Spacer()
+              Text(message.text)
+                .fontSize(16)
+                .foregroundColor(.white)
+                .padding()
+                .background(
+                  RoundedRectangle(cornerRadius: 8)
+                    .fill(.blue)
+                )
+            }
+          } else {
+            HStack {
+              Text(message.text)
+                .fontSize(16)
+                .foregroundColor(.black)
+                .padding()
+                .background(
+                  RoundedRectangle(cornerRadius: 8)
+                    .fill(Color.lightGray)
+                )
+              Spacer()
+            }
+          }
         }
         .padding(.horizontal)
         .padding(.top, 8)
@@ -56,7 +75,7 @@ struct ChatLogView: View {
       }
       TextEditorView(text: $viewModel.chatText)
       Button {
-        viewModel.updateSendMessage(fromId: appState.userId)
+        viewModel.updateSendMessage()
       } label: {
         Text("보내기")
           .fontSize(16)

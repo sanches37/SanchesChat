@@ -60,7 +60,7 @@ struct FirestoreManager {
     .eraseToAnyPublisher()
   }
   
-  func observeData<T: Decodable>(_ type: T.Type, query: FirestoreCollecion) -> AnyPublisher<[T], Error> {
+  func observeCollection<T: Decodable>(_ type: T.Type, query: FirestoreCollecion) -> AnyPublisher<[T], Error> {
     Publishers.QuerySnapshotPublisher(query: query)
       .mapError{ $0 as Error }
       .eraseToAnyPublisher()
@@ -70,7 +70,6 @@ struct FirestoreManager {
 enum FirestoreDocument {
   case users(userId: String)
   case sendMessage(fromId: String, toId: String)
-  case receiveMessage(toId: String, fromId: String)
   
   static let db = Firestore.firestore()
   
@@ -83,12 +82,6 @@ enum FirestoreDocument {
         .collection("messages")
         .document(fromId)
         .collection(toId)
-        .document()
-    case let .receiveMessage(toId, fromId):
-      return Self.db
-        .collection("messages")
-        .document(toId)
-        .collection(fromId)
         .document()
     }
   }
@@ -112,13 +105,20 @@ enum FirestoreDocument {
 
 enum FirestoreCollecion {
   case users
+  case fetchMessage(fromId: String, toId: String)
   
   static let db = Firestore.firestore()
   
-  var path: CollectionReference {
+  var path: Query {
     switch self {
     case .users:
       return Self.db.collection("users")
+    case let .fetchMessage(fromId, toId):
+      return Self.db
+        .collection("messages")
+        .document(fromId)
+        .collection(toId)
+        .order(by: "createdAt")
     }
   }
   
