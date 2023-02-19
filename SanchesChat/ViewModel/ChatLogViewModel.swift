@@ -20,12 +20,17 @@ class ChatLogViewModel: ObservableObject {
   
   func updateSendMessage(fromId: String?) {
     guard let fromId = fromId,
-          let toId = chatUser?.uid else { return }
+    let toId = chatUser?.uid else { return }
     let data = ChatMessage(fromId: fromId, toId: toId, text: self.chatText)
-
-    firestoreManager.createDocument(
-      data: data,
-      document: .sendMessage(fromId: fromId, toId: toId))
+    
+    Publishers.Zip(
+      firestoreManager.createDocument(
+        data: data,
+        document: .sendMessage(fromId: fromId, toId: toId)),
+      firestoreManager.createDocument(
+        data: data,
+        document: .receiveMessage(toId: toId, fromId: fromId))
+    )
     .sink { completion in
       switch completion {
       case .finished:
@@ -33,7 +38,9 @@ class ChatLogViewModel: ObservableObject {
       case let .failure(error):
         debugPrint(error.localizedDescription)
       }
-    } receiveValue: { _ in }
+    } receiveValue: { _ in
+      self.chatText = ""
+    }
     .store(in: &cancellable)
   }
 }
