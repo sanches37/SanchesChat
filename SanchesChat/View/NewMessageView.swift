@@ -38,8 +38,10 @@ struct NewMessageView: View {
             .padding(.horizontal)
           }
         }
+        .padding(.vertical)
       }
       .navigationTitle("새 메시지 보내기")
+      .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .navigationBarLeading) {
           Button {

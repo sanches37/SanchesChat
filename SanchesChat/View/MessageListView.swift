@@ -12,7 +12,6 @@ struct MessageListView: View {
   @State private var shouldShowLogOutAlert = false
   @State private var shouldShowImagePicker = false
   @State private var shouldShowNewMassageView = false
-  @State private var shouldShowChatLogView = false
   @State private var selectedChatUser: ChatUser?
   
   init(userId: String) {
@@ -24,10 +23,14 @@ struct MessageListView: View {
       VStack(spacing: 0) {
         myProfile
         chatList
+        
         NavigationLink(
           "",
-          isActive: $shouldShowChatLogView) {
-            Text("chat")
+          isActive: Binding<Bool>(
+            get: { selectedChatUser != nil },
+            set: { _ in selectedChatUser = nil }
+          )) {
+            ChatLogView(chatUser: selectedChatUser)
           }
       }
       .overlay(
@@ -194,7 +197,6 @@ struct MessageListView: View {
     .fullScreenCover(isPresented: $shouldShowNewMassageView) {
       NewMessageView { user in
         self.selectedChatUser = user
-        self.shouldShowChatLogView.toggle()
       }
     }
   }
