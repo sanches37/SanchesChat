@@ -44,6 +44,8 @@
 		4D8D74652979444000CC3F46 /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D74642979444000CC3F46 /* AppleAuthManager.swift */; };
 		4D8D74672990B6A000CC3F46 /* FontSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D74662990B6A000CC3F46 /* FontSize.swift */; };
 		4D8D74692990B7F500CC3F46 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D74682990B7F500CC3F46 /* Color.swift */; };
+		4DA48EC629A25170005DE5CC /* ChatLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48EC529A25170005DE5CC /* ChatLogViewModel.swift */; };
+		4DA48EC829A25F61005DE5CC /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48EC729A25F61005DE5CC /* ChatMessage.swift */; };
 		4DCA75D8299743B4003ECE6C /* QuerySnapshotPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA75D7299743B4003ECE6C /* QuerySnapshotPublisher.swift */; };
 		4DCA75DA299745CD003ECE6C /* FirestoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA75D9299745CC003ECE6C /* FirestoreError.swift */; };
 		4DCA75DE29993339003ECE6C /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA75DD29993339003ECE6C /* FirestoreManager.swift */; };
@@ -83,6 +85,8 @@
 		4D8D74642979444000CC3F46 /* AppleAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthManager.swift; sourceTree = "<group>"; };
 		4D8D74662990B6A000CC3F46 /* FontSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSize.swift; sourceTree = "<group>"; };
 		4D8D74682990B7F500CC3F46 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		4DA48EC529A25170005DE5CC /* ChatLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogViewModel.swift; sourceTree = "<group>"; };
+		4DA48EC729A25F61005DE5CC /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		4DCA75D7299743B4003ECE6C /* QuerySnapshotPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuerySnapshotPublisher.swift; sourceTree = "<group>"; };
 		4DCA75D9299745CC003ECE6C /* FirestoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreError.swift; sourceTree = "<group>"; };
 		4DCA75DD29993339003ECE6C /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
@@ -219,6 +223,7 @@
 				4D8D74552977F2E900CC3F46 /* LogInViewModel.swift */,
 				4D72BEEC299B99BB009DD66D /* MessageListViewModel.swift */,
 				4D469F2F299F999E0010BEC9 /* NewMessageViewModel.swift */,
+				4DA48EC529A25170005DE5CC /* ChatLogViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -236,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				4DCA75E32999534C003ECE6C /* ChatUser.swift */,
+				4DA48EC729A25F61005DE5CC /* ChatMessage.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -331,6 +337,7 @@
 				4DCA75DE29993339003ECE6C /* FirestoreManager.swift in Sources */,
 				4D5D103329A1085200138F43 /* ContentView.swift in Sources */,
 				4D72BEEB299B927D009DD66D /* AppState.swift in Sources */,
+				4DA48EC629A25170005DE5CC /* ChatLogViewModel.swift in Sources */,
 				4D72BEF6299CEB96009DD66D /* WithClippedImage.swift in Sources */,
 				4D8D74632979413E00CC3F46 /* AppleAuthError.swift in Sources */,
 				4DCA75D8299743B4003ECE6C /* QuerySnapshotPublisher.swift in Sources */,
@@ -343,6 +350,7 @@
 				4D469F30299F999E0010BEC9 /* NewMessageViewModel.swift in Sources */,
 				4DCA75E42999534C003ECE6C /* ChatUser.swift in Sources */,
 				4D8D745A29780CD300CC3F46 /* FirebaseAuthError.swift in Sources */,
+				4DA48EC829A25F61005DE5CC /* ChatMessage.swift in Sources */,
 				4D469F26299DF2950010BEC9 /* ImagePicker.swift in Sources */,
 				4DCA75DA299745CD003ECE6C /* FirestoreError.swift in Sources */,
 				4D8D74522977E9B600CC3F46 /* KakaoAuthError.swift in Sources */,

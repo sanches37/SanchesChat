@@ -12,12 +12,10 @@ import KakaoSDKAuth
 
 @main
 struct SanchesChatApp: App {
-  @StateObject private var appState = AppState()
-  
   var body: some Scene {
     WindowGroup {
       ContentView()
-        .environmentObject(appState)
+        .environmentObject(AppState())
         .onOpenURL { url in
           if AuthApi.isKakaoTalkLoginUrl(url) {
             _ = AuthController.handleOpenUrl(url: url)

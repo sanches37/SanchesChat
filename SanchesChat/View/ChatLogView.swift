@@ -8,55 +8,69 @@
 import SwiftUI
 
 struct ChatLogView: View {
-  let chatUser: ChatUser?
-  @State var text = ""
-    var body: some View {
-      VStack(spacing: 0) {
-        ScrollView {
-          ForEach(0..<10) { num in
-            HStack {
-              Spacer()
-              Text("frke message for now")
-                .fontSize(16)
-                .foregroundColor(.white)
-                .padding()
-                .background(
-                  RoundedRectangle(cornerRadius: 8)
-                    .fill(.blue)
-                )
-            }
-            .padding(.horizontal)
-            .padding(.top, 8)
-          }
-          .padding(.vertical, 20)
-        }
-        Divider()
-        HStack(spacing: 12) {
-          Button {
-          } label: {
-            Image(systemName: "plus.circle")
-              .fontSize(30)
-              .foregroundColor(.black)
-          }
-          TextEditorView(text: $text)
-          Button {
-          } label: {
-            Text("보내기")
-              .fontSize(16)
-              .foregroundColor(.white)
-          }
-          .padding(8)
-          .background(
-            RoundedRectangle(cornerRadius: 8)
-              .fill(.blue)
-          )
-        }
-        .padding(.vertical, 12)
-        .padding(.horizontal, 14)
-      }
-      .navigationTitle(chatUser?.name ?? "")
-      .navigationBarTitleDisplayMode(.inline)
+  @ObservedObject var viewModel: ChatLogViewModel
+  @EnvironmentObject var appState: AppState
+  
+  init(chatUser: ChatUser?) {
+    self.viewModel = ChatLogViewModel(chatUser: chatUser)
+  }
+  
+  var body: some View {
+    VStack(spacing: 0) {
+      messageLog
+      Divider()
+      messageInput
     }
+    .navigationTitle(viewModel.chatUser?.name ?? "")
+    .navigationBarTitleDisplayMode(.inline)
+  }
+  
+  private var messageLog: some View {
+    ScrollView {
+      ForEach(0..<10) { num in
+        HStack {
+          Spacer()
+          Text("frke message for now")
+            .fontSize(16)
+            .foregroundColor(.white)
+            .padding()
+            .background(
+              RoundedRectangle(cornerRadius: 8)
+                .fill(.blue)
+            )
+        }
+        .padding(.horizontal)
+        .padding(.top, 8)
+      }
+      .padding(.vertical, 20)
+    }
+  }
+  
+  private var messageInput: some View {
+    HStack(spacing: 12) {
+      Button {
+      } label: {
+        Image(systemName: "plus.circle")
+          .fontSize(30)
+          .foregroundColor(.black)
+      }
+      TextEditorView(text: $viewModel.chatText)
+      Button {
+        viewModel.updateSendMessage(fromId: appState.userId)
+      } label: {
+        Text("보내기")
+          .fontSize(16)
+          .foregroundColor(.white)
+      }
+      .padding(8)
+      .background(
+        RoundedRectangle(cornerRadius: 8)
+          .fill(.blue)
+      )
+    }
+    .padding(.vertical, 12)
+    .padding(.horizontal, 14)
+  }
 }
 
 struct ChatLogView_Previews: PreviewProvider {
