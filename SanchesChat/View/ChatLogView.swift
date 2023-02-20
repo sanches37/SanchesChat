@@ -24,7 +24,7 @@ struct ChatLogView: View {
     .navigationTitle(viewModel.chatUser?.name ?? "")
     .navigationBarTitleDisplayMode(.inline)
     .onAppear {
-      viewModel.currentUserId = appState.userId
+      viewModel.currentChatUser = appState.chatUser
     }
   }
   

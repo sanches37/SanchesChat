@@ -15,7 +15,7 @@ class ChatLogViewModel: ObservableObject {
   
   @Published var chatMessages: [ChatMessage] = []
   @Published var chatUser: ChatUser?
-  @Published var currentUserId: String?
+  @Published var currentChatUser: ChatUser?
   @Published var chatText = ""
   
   init(chatUser: ChatUser?) {
@@ -26,8 +26,8 @@ class ChatLogViewModel: ObservableObject {
   private func observeMessage() {
     guard let toId = chatUser?.uid else { return }
     
-    $currentUserId
-      .compactMap { $0 }
+    $currentChatUser
+      .compactMap { $0?.uid }
       .flatMap { [weak self] fromId -> AnyPublisher<[ChatMessage], Error> in
         return self?.firestoreManager.observeCollection(
           ChatMessage.self,
@@ -48,22 +48,27 @@ class ChatLogViewModel: ObservableObject {
   }
   
   func updateSendMessage() {
-    guard let fromId = currentUserId,
+    guard let fromUser = currentChatUser,
           let toUser = chatUser else { return }
-    let fromData = ChatMessage(messageSource: .from, text: chatText, createdAt: Date())
-    let toData = ChatMessage(messageSource: .to, text: chatText, createdAt: Date())
-    let recentMessageData = RecentMessage(toChatUser: toUser, text: chatText, createdAt: Date())
+    let currentDate = Date()
+    let fromData = ChatMessage(messageSource: .from, text: chatText, createdAt: currentDate)
+    let toData = ChatMessage(messageSource: .to, text: chatText, createdAt: currentDate)
+    let recentFromData = RecentMessage(toChatUser: toUser, text: chatText, createdAt: currentDate)
+    let recentToData = RecentMessage(toChatUser: fromUser, text: chatText, createdAt: currentDate)
    
-    Publishers.Zip3(
+    Publishers.Zip4(
       firestoreManager.createDocument(
         data: fromData,
-        document: .sendMessage(fromId: fromId, toId: toUser.uid)),
+        document: .sendMessage(fromId: fromUser.uid, toId: toUser.uid)),
       firestoreManager.createDocument(
         data: toData,
-        document: .sendMessage(fromId: toUser.uid, toId: fromId)),
+        document: .sendMessage(fromId: toUser.uid, toId: fromUser.uid)),
       firestoreManager.createDocument(
-        data: recentMessageData,
-        document: .recentMessage(userId: fromId, toId: toUser.uid))
+        data: recentFromData,
+        document: .recentMessage(userId: fromUser.uid, toId: toUser.uid)),
+      firestoreManager.createDocument(
+        data: recentToData,
+        document: .recentMessage(userId: toUser.uid, toId: fromUser.uid))
     )
     .sink { completion in
       switch completion {

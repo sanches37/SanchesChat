@@ -8,16 +8,51 @@
 import Combine
 
 class AppState: ObservableObject {
-  @Published private(set) var userId: String?
   private let firebaseAuthManager = FirebaseAuthManager()
+  private let firestoreManager = FirestoreManager()
+  private var cancellable = Set<AnyCancellable>()
+  
+  @Published private(set) var userId: String?
+  @Published private(set) var chatUser: ChatUser?
   
   init() {
     observeCurrentUserId()
+    getCurrentChatUser()
   }
   
   private func observeCurrentUserId() {
     firebaseAuthManager.observeCurrentUser()
       .map { $0?.uid }
-      .assign(to: &$userId)
+      .sink { completion in
+        switch completion {
+        case .finished:
+          debugPrint("observeCurrentUserId finished")
+        case let .failure(error):
+          debugPrint(error.localizedDescription)
+        }
+      } receiveValue: { result in
+        self.userId = result
+      }
+      .store(in: &cancellable)
+  }
+  
+  private func getCurrentChatUser() {
+    $userId
+      .compactMap { $0 }
+      .flatMap {
+        return self.firestoreManager
+          .getDocument(ChatUser.self, document: .users(userId: $0))
+      }
+      .sink { completion in
+        switch completion {
+        case .finished:
+          debugPrint("getCurrentChatUser finished")
+        case let .failure(error):
+          debugPrint(error.localizedDescription)
+        }
+      } receiveValue: { result in
+        self.chatUser = result
+      }
+      .store(in: &cancellable)
   }
 }
