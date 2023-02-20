@@ -44,8 +44,10 @@ struct ChatLogView: View {
         .onChange(of: viewModel.chatMessages) { _ in
           scrollToLatest(proxy)
         }
-        .onReceive(keyboardPublisher) { _ in
-          scrollToLatest(proxy)
+        .onReceive(keyboardPublisher) { result in
+          if result {
+            scrollToLatest(proxy)
+          }
         }
         .padding(.vertical)
       }
@@ -56,7 +58,7 @@ struct ChatLogView: View {
     guard let last = viewModel.chatMessages.last else {
       return
     }
-    withAnimation {
+    withAnimation(.easeOut(duration: 0.5)) {
       proxy.scrollTo(last.id, anchor: .bottom)
     }
   }
