@@ -46,7 +46,6 @@
 		4D8D74692990B7F500CC3F46 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D74682990B7F500CC3F46 /* Color.swift */; };
 		4DA48EC629A25170005DE5CC /* ChatLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48EC529A25170005DE5CC /* ChatLogViewModel.swift */; };
 		4DA48EC829A25F61005DE5CC /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48EC729A25F61005DE5CC /* ChatMessage.swift */; };
-		4DA48ECA29A2AA4D005DE5CC /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48EC929A2AA4D005DE5CC /* CommonError.swift */; };
 		4DA48ECD29A37534005DE5CC /* Extension + Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48ECC29A37534005DE5CC /* Extension + Date.swift */; };
 		4DCA75D8299743B4003ECE6C /* QuerySnapshotPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA75D7299743B4003ECE6C /* QuerySnapshotPublisher.swift */; };
 		4DCA75DA299745CD003ECE6C /* FirestoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA75D9299745CC003ECE6C /* FirestoreError.swift */; };
@@ -89,7 +88,6 @@
 		4D8D74682990B7F500CC3F46 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		4DA48EC529A25170005DE5CC /* ChatLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogViewModel.swift; sourceTree = "<group>"; };
 		4DA48EC729A25F61005DE5CC /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
-		4DA48EC929A2AA4D005DE5CC /* CommonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonError.swift; sourceTree = "<group>"; };
 		4DA48ECC29A37534005DE5CC /* Extension + Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + Date.swift"; sourceTree = "<group>"; };
 		4DCA75D7299743B4003ECE6C /* QuerySnapshotPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuerySnapshotPublisher.swift; sourceTree = "<group>"; };
 		4DCA75D9299745CC003ECE6C /* FirestoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreError.swift; sourceTree = "<group>"; };
@@ -205,7 +203,6 @@
 				4D8D74622979413E00CC3F46 /* AppleAuthError.swift */,
 				4DCA75D9299745CC003ECE6C /* FirestoreError.swift */,
 				4D469F2B299E49A60010BEC9 /* FirebaseStorageError.swift */,
-				4DA48EC929A2AA4D005DE5CC /* CommonError.swift */,
 			);
 			path = Error;
 			sourceTree = "<group>";
@@ -360,7 +357,6 @@
 				4D72BEF3299CE281009DD66D /* URLImage.swift in Sources */,
 				4D8D746129793BC700CC3F46 /* NonceManager.swift in Sources */,
 				4D469F2C299E49A60010BEC9 /* FirebaseStorageError.swift in Sources */,
-				4DA48ECA29A2AA4D005DE5CC /* CommonError.swift in Sources */,
 				4D8D74692990B7F500CC3F46 /* Color.swift in Sources */,
 				4D469F30299F999E0010BEC9 /* NewMessageViewModel.swift in Sources */,
 				4DCA75E42999534C003ECE6C /* ChatUser.swift in Sources */,

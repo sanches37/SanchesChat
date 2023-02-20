@@ -29,13 +29,10 @@ class ChatLogViewModel: ObservableObject {
     $currentUserId
       .compactMap { $0 }
       .flatMap { [weak self] fromId -> AnyPublisher<[ChatMessage], Error> in
-        guard let self = self else {
-          return Fail(error: CommonError.weakSelfNotfound).eraseToAnyPublisher()
-        }
-        return self.firestoreManager.observeCollection(
+        return self?.firestoreManager.observeCollection(
           ChatMessage.self,
           query: .fetchMessage(fromId: fromId, toId: toId)
-        )
+        ) ?? Just([]).setFailureType(to: Error.self).eraseToAnyPublisher()
       }
       .sink { completion in
         switch completion {
