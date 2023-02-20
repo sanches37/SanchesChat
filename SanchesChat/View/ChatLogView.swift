@@ -17,7 +17,7 @@ struct ChatLogView: View {
   
   var body: some View {
     VStack(spacing: 0) {
-      messageLog
+      messageLogList
       Divider()
       messageInput
     }
@@ -28,41 +28,51 @@ struct ChatLogView: View {
     }
   }
   
-  private var messageLog: some View {
+  private var messageLogList: some View {
     ScrollView {
-      ForEach(viewModel.chatMessage) { message in
+      ForEach(viewModel.chatMessages) { message in
         VStack {
-          if message.messageSource == .from {
-            HStack {
-              Spacer()
-              Text(message.text)
-                .fontSize(16)
-                .foregroundColor(.white)
-                .padding()
-                .background(
-                  RoundedRectangle(cornerRadius: 8)
-                    .fill(.blue)
-                )
-            }
-          } else {
-            HStack {
-              Text(message.text)
-                .fontSize(16)
-                .foregroundColor(.black)
-                .padding()
-                .background(
-                  RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.lightGray)
-                )
-              Spacer()
-            }
+          if viewModel.checkShouldShowingDate(message: message) {
+            messageDateDivider(message: message)
           }
+          messageLogItem(message: message)
         }
         .padding(.horizontal)
-        .padding(.top, 8)
       }
-      .padding(.vertical, 20)
+      .padding(.vertical)
     }
+  }
+  
+  private func messageDateDivider(message: ChatMessage) -> some View {
+    Text(message.createdAt.toDateTimeString())
+      .foregroundColor(.black)
+      .fontSize(12)
+      .padding(8)
+      .background(
+        Capsule()
+          .fill(Color.lightGray)
+      )
+  }
+  
+  private func messageLogItem(message: ChatMessage) -> some View {
+    HStack {
+      Spacer()
+      Text(message.createdAt.toDateTimeString(format: "a hh:mm"))
+        .foregroundColor(.black)
+        .fontSize(12)
+        .frame(maxHeight: .infinity, alignment: .bottom)
+      Text(message.text)
+        .fontSize(16)
+        .foregroundColor(message.messageSource == .from ? .white : .black)
+        .padding(10)
+        .background(
+          RoundedRectangle(cornerRadius: 8)
+            .fill(message.messageSource == .from ? .blue : .lightGray)
+        )
+    }
+    .environment(
+      \.layoutDirection,
+       message.messageSource == .from ? .leftToRight : .rightToLeft)
   }
   
   private var messageInput: some View {
@@ -103,5 +113,6 @@ struct ChatLogView_Previews: PreviewProvider {
           profileImageUrl: "https://firebasestorage.googleapis.com:443/v0/b/sancheschat-3af9d.appspot.com/o/I9IvOqJxRAedyVC7Y3ZyQeKgfA42?alt=media&token=d612cb12-670b-441c-95a8-419526d442bc")
       )
     }
+    .environmentObject(AppState())
   }
 }

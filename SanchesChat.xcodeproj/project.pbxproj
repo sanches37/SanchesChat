@@ -47,6 +47,7 @@
 		4DA48EC629A25170005DE5CC /* ChatLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48EC529A25170005DE5CC /* ChatLogViewModel.swift */; };
 		4DA48EC829A25F61005DE5CC /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48EC729A25F61005DE5CC /* ChatMessage.swift */; };
 		4DA48ECA29A2AA4D005DE5CC /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48EC929A2AA4D005DE5CC /* CommonError.swift */; };
+		4DA48ECD29A37534005DE5CC /* Extension + Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48ECC29A37534005DE5CC /* Extension + Date.swift */; };
 		4DCA75D8299743B4003ECE6C /* QuerySnapshotPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA75D7299743B4003ECE6C /* QuerySnapshotPublisher.swift */; };
 		4DCA75DA299745CD003ECE6C /* FirestoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA75D9299745CC003ECE6C /* FirestoreError.swift */; };
 		4DCA75DE29993339003ECE6C /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA75DD29993339003ECE6C /* FirestoreManager.swift */; };
@@ -89,6 +90,7 @@
 		4DA48EC529A25170005DE5CC /* ChatLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogViewModel.swift; sourceTree = "<group>"; };
 		4DA48EC729A25F61005DE5CC /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		4DA48EC929A2AA4D005DE5CC /* CommonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonError.swift; sourceTree = "<group>"; };
+		4DA48ECC29A37534005DE5CC /* Extension + Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + Date.swift"; sourceTree = "<group>"; };
 		4DCA75D7299743B4003ECE6C /* QuerySnapshotPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuerySnapshotPublisher.swift; sourceTree = "<group>"; };
 		4DCA75D9299745CC003ECE6C /* FirestoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreError.swift; sourceTree = "<group>"; };
 		4DCA75DD29993339003ECE6C /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				4D8D74532977F2A200CC3F46 /* View */,
 				4D8D744D2977E8F200CC3F46 /* Manager */,
 				4D8D74502977E99D00CC3F46 /* Error */,
+				4DA48ECB29A3750B005DE5CC /* Extension */,
 				4DCA75D62997438F003ECE6C /* Publisher */,
 				4D8D742A2977D56F00CC3F46 /* SanchesChatApp.swift */,
 				4D5D103229A1085200138F43 /* ContentView.swift */,
@@ -229,6 +232,14 @@
 				4DA48EC529A25170005DE5CC /* ChatLogViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4DA48ECB29A3750B005DE5CC /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				4DA48ECC29A37534005DE5CC /* Extension + Date.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		4DCA75D62997438F003ECE6C /* Publisher */ = {
@@ -361,6 +372,7 @@
 				4D469F2A299E475C0010BEC9 /* FirebaseStorageManager.swift in Sources */,
 				4D8D742B2977D56F00CC3F46 /* SanchesChatApp.swift in Sources */,
 				4D469F2E299F95EE0010BEC9 /* NewMessageView.swift in Sources */,
+				4DA48ECD29A37534005DE5CC /* Extension + Date.swift in Sources */,
 				4D8D74672990B6A000CC3F46 /* FontSize.swift in Sources */,
 				4D8D74652979444000CC3F46 /* AppleAuthManager.swift in Sources */,
 				4D5D103529A154F600138F43 /* ChatLogView.swift in Sources */,

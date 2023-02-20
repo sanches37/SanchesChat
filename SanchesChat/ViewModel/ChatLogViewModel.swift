@@ -13,7 +13,7 @@ class ChatLogViewModel: ObservableObject {
   private let firebaseAuthManager = FirebaseAuthManager()
   private var cancellable = Set<AnyCancellable>()
   
-  @Published var chatMessage: [ChatMessage] = []
+  @Published var chatMessages: [ChatMessage] = []
   @Published var chatUser: ChatUser?
   @Published var currentUserId: String?
   @Published var chatText = ""
@@ -45,7 +45,7 @@ class ChatLogViewModel: ObservableObject {
           debugPrint(error.localizedDescription)
         }
       } receiveValue: { [weak self] result in
-        self?.chatMessage = result
+        self?.chatMessages = result
       }
       .store(in: &cancellable)
   }
@@ -75,5 +75,16 @@ class ChatLogViewModel: ObservableObject {
       self.chatText = ""
     }
     .store(in: &cancellable)
+  }
+  
+  func checkShouldShowingDate(message: ChatMessage) -> Bool {
+    let lhs = message
+    guard let lhsIndex = chatMessages.firstIndex(of: lhs),
+          lhsIndex != 0 else {
+      return true
+    }
+    let rhsIndex = lhsIndex - 1
+    let rhs = chatMessages[rhsIndex]
+    return !lhs.createdAt.checkIsSameDay(compareTo: rhs.createdAt)
   }
 }
