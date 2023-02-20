@@ -30,16 +30,24 @@ struct ChatLogView: View {
   
   private var messageLogList: some View {
     ScrollView {
-      ForEach(viewModel.chatMessages) { message in
-        VStack {
-          if viewModel.checkShouldShowingDate(message: message) {
-            messageDateDivider(message: message)
+      ScrollViewReader { scrollReader in
+        ForEach(viewModel.chatMessages) { message in
+          VStack {
+            if viewModel.checkShouldShowingDate(message: message) {
+              messageDateDivider(message: message)
+            }
+            messageLogItem(message: message)
           }
-          messageLogItem(message: message)
+          .padding(.horizontal)
+          .id(message.id)
         }
-        .padding(.horizontal)
+        .onChange(of: viewModel.chatMessages) { _ in
+          guard let last = viewModel.chatMessages.last else { return
+          }
+          scrollReader.scrollTo(last.id, anchor: .bottom)
+        }
+        .padding(.vertical)
       }
-      .padding(.vertical)
     }
   }
   
@@ -99,20 +107,5 @@ struct ChatLogView: View {
     }
     .padding(.vertical, 12)
     .padding(.horizontal, 14)
-  }
-}
-
-struct ChatLogView_Previews: PreviewProvider {
-  static var previews: some View {
-    NavigationView {
-      ChatLogView(
-        chatUser: ChatUser(
-          name: "박태훈",
-          email: "@naver.com",
-          uid: "I9IvOqJxRAedyVC7Y3ZyQeKgfA42",
-          profileImageUrl: "https://firebasestorage.googleapis.com:443/v0/b/sancheschat-3af9d.appspot.com/o/I9IvOqJxRAedyVC7Y3ZyQeKgfA42?alt=media&token=d612cb12-670b-441c-95a8-419526d442bc")
-      )
-    }
-    .environmentObject(AppState())
   }
 }
