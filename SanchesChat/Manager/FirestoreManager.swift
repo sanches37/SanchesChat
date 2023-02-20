@@ -70,6 +70,7 @@ struct FirestoreManager {
 enum FirestoreDocument {
   case users(userId: String)
   case sendMessage(fromId: String, toId: String)
+  case recentMessage(userId: String, toId: String)
   
   static let db = Firestore.firestore()
   
@@ -83,6 +84,12 @@ enum FirestoreDocument {
         .document(fromId)
         .collection(toId)
         .document()
+    case let .recentMessage(userId, toId):
+      return Self.db
+        .collection("recentMessages")
+        .document(userId)
+        .collection("messages")
+        .document(toId)
     }
   }
   

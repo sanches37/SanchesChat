@@ -49,17 +49,21 @@ class ChatLogViewModel: ObservableObject {
   
   func updateSendMessage() {
     guard let fromId = currentUserId,
-          let toId = chatUser?.uid else { return }
-    let fromData = ChatMessage(messageSource: .from, text: self.chatText, createdAt: Date())
-    let toData = ChatMessage(messageSource: .to, text: self.chatText, createdAt: Date())
-    
-    Publishers.Zip(
+          let toUser = chatUser else { return }
+    let fromData = ChatMessage(messageSource: .from, text: chatText, createdAt: Date())
+    let toData = ChatMessage(messageSource: .to, text: chatText, createdAt: Date())
+    let recentMessageData = RecentMessage(toChatUser: toUser, text: chatText, createdAt: Date())
+   
+    Publishers.Zip3(
       firestoreManager.createDocument(
         data: fromData,
-        document: .sendMessage(fromId: fromId, toId: toId)),
+        document: .sendMessage(fromId: fromId, toId: toUser.uid)),
       firestoreManager.createDocument(
         data: toData,
-        document: .sendMessage(fromId: toId, toId: fromId))
+        document: .sendMessage(fromId: toUser.uid, toId: fromId)),
+      firestoreManager.createDocument(
+        data: recentMessageData,
+        document: .recentMessage(userId: fromId, toId: toUser.uid))
     )
     .sink { completion in
       switch completion {
