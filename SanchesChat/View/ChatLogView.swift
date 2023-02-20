@@ -30,7 +30,7 @@ struct ChatLogView: View {
   
   private var messageLogList: some View {
     ScrollView {
-      ScrollViewReader { scrollReader in
+      ScrollViewReader { proxy in
         ForEach(viewModel.chatMessages) { message in
           VStack {
             if viewModel.checkShouldShowingDate(message: message) {
@@ -42,12 +42,22 @@ struct ChatLogView: View {
           .id(message.id)
         }
         .onChange(of: viewModel.chatMessages) { _ in
-          guard let last = viewModel.chatMessages.last else { return
-          }
-          scrollReader.scrollTo(last.id, anchor: .bottom)
+          scrollToLatest(proxy)
+        }
+        .onReceive(keyboardPublisher) { _ in
+          scrollToLatest(proxy)
         }
         .padding(.vertical)
       }
+    }
+  }
+  
+  private func scrollToLatest(_ proxy: ScrollViewProxy) {
+    guard let last = viewModel.chatMessages.last else {
+      return
+    }
+    withAnimation {
+      proxy.scrollTo(last.id, anchor: .bottom)
     }
   }
   
