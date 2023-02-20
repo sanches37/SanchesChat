@@ -113,6 +113,7 @@ enum FirestoreDocument {
 enum FirestoreCollecion {
   case users
   case fetchMessage(fromId: String, toId: String)
+  case fetchRecentMessage(userId: String)
   
   static let db = Firestore.firestore()
   
@@ -126,6 +127,12 @@ enum FirestoreCollecion {
         .document(fromId)
         .collection(toId)
         .order(by: "createdAt")
+    case let .fetchRecentMessage(userId):
+      return Self.db
+        .collection("recentMessages")
+        .document(userId)
+        .collection("messages")
+        .order(by: "createdAt", descending: true)
     }
   }
   

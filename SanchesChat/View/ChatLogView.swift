@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ChatLogView: View {
-  @ObservedObject var viewModel: ChatLogViewModel
+  @StateObject var viewModel: ChatLogViewModel
   @EnvironmentObject var appState: AppState
   
   init(chatUser: ChatUser?) {
-    self.viewModel = ChatLogViewModel(chatUser: chatUser)
+    self._viewModel = StateObject(wrappedValue: .init(chatUser: chatUser))
   }
   
   var body: some View {
@@ -64,7 +64,7 @@ struct ChatLogView: View {
   }
   
   private func messageDateDivider(message: ChatMessage) -> some View {
-    Text(message.createdAt.toDateTimeString())
+    Text(message.createdAt.toDateTimeString(format: "yyyy년 MM월 dd일 E요일"))
       .foregroundColor(.black)
       .fontSize(12)
       .padding(8)

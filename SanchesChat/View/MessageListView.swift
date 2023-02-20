@@ -148,32 +148,39 @@ struct MessageListView: View {
   
   private var chatList: some View {
     ScrollView {
-      ForEach(0..<10, id: \.self) { num in
-        HStack(spacing: 16) {
-          Image(systemName: "person.fill")
-            .fontSize(32)
-            .padding(8)
-            .background (
-              Circle()
-                .stroke(Color(.label), lineWidth: 1)
-                .background(Circle().fill(Color.paleTurquoise))
-            )
-          VStack(alignment: .leading, spacing: 5) {
-            Text("Username")
-              .fontSize(16, .bold)
-              .foregroundColor(Color(.label))
-            Text("Message sent to user")
-              .fontSize(14)
-              .foregroundColor(.lightGray)
+      ForEach(viewModel.resentMessage) { message in
+        NavigationLink {
+          ChatLogView(chatUser: message.toChatUser)
+        } label: {
+          HStack(spacing: 16) {
+            URLImageView(url: message.toChatUser.profileImageUrl ?? "")
+              .withClippedImage(
+                width: 55,
+                height: 55,
+                clippedType: .circle)
+              .overlay (
+                Circle()
+                  .stroke(.black, lineWidth: 1)
+              )
+            VStack(alignment: .leading, spacing: 5) {
+              Text(message.toChatUser.name)
+                .fontSize(20, .bold)
+                .foregroundColor(Color(.label))
+              Text(message.text)
+                .fontSize(16)
+                .foregroundColor(.lightGray)
+                .lineLimit(1)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            Text(message.createdAt.toRelativeString())
+              .fontSize(14, .semibold)
+              .foregroundColor(.black)
           }
-          Spacer()
-          Text("22d")
-            .fontSize(14, .semibold)
+          .padding(.bottom)
         }
-        .padding(.horizontal)
-        .padding(.vertical, 10)
       }
-      .padding(.bottom, 50)
+      .padding([.top, .horizontal])
+      .padding(.bottom, 40)
     }
   }
   

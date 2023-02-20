@@ -16,6 +16,7 @@ class MessageListViewModel: ObservableObject {
   private let userId: String
   
   @Published private(set) var chatUser: ChatUser?
+  @Published private(set) var resentMessage: [RecentMessage] = []
   @Published var editName = ""
   @Published var editImage: UIImage?
   @Published var isEditProfile = false
@@ -23,6 +24,7 @@ class MessageListViewModel: ObservableObject {
   init(userId: String) {
     self.userId = userId
     checkFirstUser()
+    observeRecentMessages()
   }
   
   private func checkFirstUser() {
@@ -74,6 +76,22 @@ class MessageListViewModel: ObservableObject {
     } receiveValue: { result in
       self.chatUser = result
       self.editName = result.name
+    }
+    .store(in: &cancellable)
+  }
+  
+  private func observeRecentMessages() {
+    firestoreManager.observeCollection(
+      RecentMessage.self, query: .fetchRecentMessage(userId: userId))
+    .sink { completion in
+      switch completion {
+      case .finished:
+        debugPrint("observeRecentMessages finished")
+      case let .failure(error):
+        debugPrint(error.localizedDescription)
+      }
+    } receiveValue: { [weak self] result in
+      self?.resentMessage = result
     }
     .store(in: &cancellable)
   }
