@@ -102,8 +102,9 @@ struct ChatLogView: View {
       .padding(8)
       .background(
         RoundedRectangle(cornerRadius: 8)
-          .fill(.blue)
+          .fill(viewModel.chatText.isEmpty ? Color.lightGray : .blue)
       )
+      .disabled(viewModel.chatText.isEmpty ? true : false)
     }
     .padding(.vertical, 12)
     .padding(.horizontal, 14)
