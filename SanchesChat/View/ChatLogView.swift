@@ -9,10 +9,10 @@ import SwiftUI
 
 struct ChatLogView: View {
   @StateObject var viewModel: ChatLogViewModel
-  @EnvironmentObject var appState: AppState
   
-  init(chatUser: ChatUser?) {
-    self._viewModel = StateObject(wrappedValue: .init(chatUser: chatUser))
+  init(currentChatUser: ChatUser?, chatUser: ChatUser?) {
+    self._viewModel =
+    StateObject(wrappedValue: .init(currentChatUser: currentChatUser, chatUser: chatUser))
   }
   
   var body: some View {
@@ -23,9 +23,6 @@ struct ChatLogView: View {
     }
     .navigationTitle(viewModel.chatUser?.name ?? "")
     .navigationBarTitleDisplayMode(.inline)
-    .onAppear {
-      viewModel.currentChatUser = appState.chatUser
-    }
   }
   
   private var messageLogList: some View {

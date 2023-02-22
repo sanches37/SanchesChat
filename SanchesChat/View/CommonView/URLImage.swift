@@ -19,6 +19,7 @@ struct URLImageView: View {
               Image(systemName: "person.fill")
                 .resizable()
                 .scaledToFit()
+                .foregroundColor(.black)
                 .padding(.horizontal, geometry.size.width * 0.2)
                 .padding(.vertical, geometry.size.height * 0.2)
             )

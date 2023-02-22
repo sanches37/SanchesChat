@@ -30,7 +30,9 @@ struct MessageListView: View {
             get: { selectedChatUser != nil },
             set: { _ in selectedChatUser = nil }
           )) {
-            ChatLogView(chatUser: selectedChatUser)
+            ChatLogView(
+              currentChatUser: viewModel.chatUser,
+              chatUser: selectedChatUser)
           }
       }
       .overlay(
@@ -150,7 +152,10 @@ struct MessageListView: View {
     ScrollView {
       ForEach(viewModel.resentMessage) { message in
         NavigationLink {
-          ChatLogView(chatUser: message.toChatUser)
+          ChatLogView(
+            currentChatUser: viewModel.chatUser,
+            chatUser: message.toChatUser
+          )
         } label: {
           HStack(spacing: 16) {
             URLImageView(url: message.toChatUser.profileImageUrl ?? "")
@@ -165,7 +170,7 @@ struct MessageListView: View {
             VStack(alignment: .leading, spacing: 5) {
               Text(message.toChatUser.name)
                 .fontSize(20, .bold)
-                .foregroundColor(Color(.label))
+                .foregroundColor(.black)
               Text(message.text)
                 .fontSize(16)
                 .foregroundColor(.lightGray)

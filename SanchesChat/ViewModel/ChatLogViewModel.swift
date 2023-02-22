@@ -14,12 +14,13 @@ class ChatLogViewModel: ObservableObject {
   private var cancellable = Set<AnyCancellable>()
   
   @Published var chatMessages: [ChatMessage] = []
-  @Published var chatUser: ChatUser?
   @Published var currentChatUser: ChatUser?
+  @Published var chatUser: ChatUser?
   @Published var chatText = ""
   
-  init(chatUser: ChatUser?) {
+  init(currentChatUser: ChatUser?, chatUser: ChatUser?) {
     self.chatUser = chatUser
+    self.currentChatUser = currentChatUser
     observeMessage()
   }
   

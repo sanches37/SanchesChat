@@ -49,6 +49,7 @@
 		4DA48ECD29A37534005DE5CC /* Extension + Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48ECC29A37534005DE5CC /* Extension + Date.swift */; };
 		4DA48ED129A3A52C005DE5CC /* KeyboardPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48ED029A3A52C005DE5CC /* KeyboardPublisher.swift */; };
 		4DA48ED329A3AE40005DE5CC /* RecentMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48ED229A3AE40005DE5CC /* RecentMessage.swift */; };
+		4DA48ED529A580F8005DE5CC /* DocumentSnapShotPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48ED429A580F7005DE5CC /* DocumentSnapShotPublisher.swift */; };
 		4DCA75D8299743B4003ECE6C /* QuerySnapshotPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA75D7299743B4003ECE6C /* QuerySnapshotPublisher.swift */; };
 		4DCA75DA299745CD003ECE6C /* FirestoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA75D9299745CC003ECE6C /* FirestoreError.swift */; };
 		4DCA75DE29993339003ECE6C /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA75DD29993339003ECE6C /* FirestoreManager.swift */; };
@@ -93,6 +94,7 @@
 		4DA48ECC29A37534005DE5CC /* Extension + Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + Date.swift"; sourceTree = "<group>"; };
 		4DA48ED029A3A52C005DE5CC /* KeyboardPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardPublisher.swift; sourceTree = "<group>"; };
 		4DA48ED229A3AE40005DE5CC /* RecentMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMessage.swift; sourceTree = "<group>"; };
+		4DA48ED429A580F7005DE5CC /* DocumentSnapShotPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSnapShotPublisher.swift; sourceTree = "<group>"; };
 		4DCA75D7299743B4003ECE6C /* QuerySnapshotPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuerySnapshotPublisher.swift; sourceTree = "<group>"; };
 		4DCA75D9299745CC003ECE6C /* FirestoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreError.swift; sourceTree = "<group>"; };
 		4DCA75DD29993339003ECE6C /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				4DCA75D7299743B4003ECE6C /* QuerySnapshotPublisher.swift */,
 				4D72BEE8299B8E34009DD66D /* AuthPublisher.swift */,
 				4DA48ED029A3A52C005DE5CC /* KeyboardPublisher.swift */,
+				4DA48ED429A580F7005DE5CC /* DocumentSnapShotPublisher.swift */,
 			);
 			path = Publisher;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 				4D72BEEB299B927D009DD66D /* AppState.swift in Sources */,
 				4DA48EC629A25170005DE5CC /* ChatLogViewModel.swift in Sources */,
 				4DA48ED129A3A52C005DE5CC /* KeyboardPublisher.swift in Sources */,
+				4DA48ED529A580F8005DE5CC /* DocumentSnapShotPublisher.swift in Sources */,
 				4D72BEF6299CEB96009DD66D /* WithClippedImage.swift in Sources */,
 				4DA48ED329A3AE40005DE5CC /* RecentMessage.swift in Sources */,
 				4D8D74632979413E00CC3F46 /* AppleAuthError.swift in Sources */,

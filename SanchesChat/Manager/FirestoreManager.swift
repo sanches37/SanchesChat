@@ -60,6 +60,39 @@ struct FirestoreManager {
     .eraseToAnyPublisher()
   }
   
+  func getCollectionAfterUpdate(
+    type: [String: Any],
+    collection: FirestoreCollecion,
+    afterCollection: String,
+    afterDocument: String) -> AnyPublisher<Void, Error> {
+      Future<Void, FirestoreError> { promise in
+        collection.path.getDocuments { snapshot, error in
+          if let error = error {
+            promise(.failure(.unknown(description: error.localizedDescription)))
+          }
+          snapshot?.documents.forEach { snapshot in
+            snapshot.reference
+              .collection(afterCollection)
+              .document(afterDocument).getDocument { snapshot, error in
+                if let error = error {
+                  promise(.failure(.unknown(description: error.localizedDescription)))
+                }
+                snapshot?.reference.updateData(type)
+                promise(.success(()))
+              }
+          }
+        }
+      }
+      .mapError { $0 as Error }
+      .eraseToAnyPublisher()
+    }
+  
+  func observeDocument<T: Decodable>(_ type: T.Type, document: FirestoreDocument) -> AnyPublisher<T?, Error> {
+    Publishers.DocumentSnapShotPublisher(document: document)
+      .mapError{ $0 as Error }
+      .eraseToAnyPublisher()
+  }
+  
   func observeCollection<T: Decodable>(_ type: T.Type, query: FirestoreCollecion) -> AnyPublisher<[T], Error> {
     Publishers.QuerySnapshotPublisher(query: query)
       .mapError{ $0 as Error }
@@ -76,7 +109,7 @@ enum FirestoreDocument {
   
   var path: DocumentReference {
     switch self {
-    case let .users(userId: userId):
+    case let .users(userId):
       return Self.db.collection("users").document(userId)
     case let .sendMessage(fromId, toId):
       return Self.db
@@ -86,9 +119,9 @@ enum FirestoreDocument {
         .document()
     case let .recentMessage(userId, toId):
       return Self.db
-        .collection("recentMessages")
+        .collection("users")
         .document(userId)
-        .collection("messages")
+        .collection("recentMessages")
         .document(toId)
     }
   }
@@ -129,9 +162,9 @@ enum FirestoreCollecion {
         .order(by: "createdAt")
     case let .fetchRecentMessage(userId):
       return Self.db
-        .collection("recentMessages")
+        .collection("users")
         .document(userId)
-        .collection("messages")
+        .collection("recentMessages")
         .order(by: "createdAt", descending: true)
     }
   }
