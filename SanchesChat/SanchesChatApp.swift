@@ -5,6 +5,7 @@
 //  Created by tae hoon park on 2023/01/18.
 //
 
+import Foundation
 import SwiftUI
 import Firebase
 import KakaoSDKCommon
@@ -12,6 +13,8 @@ import KakaoSDKAuth
 
 @main
 struct SanchesChatApp: App {
+  @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+  
   var body: some Scene {
     WindowGroup {
       ContentView()
