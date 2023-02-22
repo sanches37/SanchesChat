@@ -24,13 +24,8 @@ class LogInViewModel: ObservableObject {
           accessToken: $0.accessToken
         )
       }
-      .sink { completion in
-        switch completion {
-        case .finished:
-          debugPrint("logIn finished")
-        case .failure(let error):
-          debugPrint(error.localizedDescription)
-        }
+      .sink {
+        self.onReceiveCompletion("logIn finished", $0)
       } receiveValue: { _ in }
       .store(in: &cancellable)
   }
@@ -44,13 +39,8 @@ class LogInViewModel: ObservableObject {
           nonce: self.nonce
         )
       }
-      .sink { completion in
-        switch completion {
-        case .finished:
-          debugPrint("logIn finished")
-        case .failure(let error):
-          debugPrint(error.localizedDescription)
-        }
+      .sink {
+        self.onReceiveCompletion("logIn finished", $0)
       } receiveValue: { _ in }
       .store(in: &cancellable)
   }

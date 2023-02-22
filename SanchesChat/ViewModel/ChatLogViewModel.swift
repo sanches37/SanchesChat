@@ -35,13 +35,8 @@ class ChatLogViewModel: ObservableObject {
           query: .fetchMessage(fromId: fromId, toId: toId)
         ) ?? Just([]).setFailureType(to: Error.self).eraseToAnyPublisher()
       }
-      .sink { completion in
-        switch completion {
-        case .finished:
-          debugPrint("observeMessage finished")
-        case let .failure(error):
-          debugPrint(error.localizedDescription)
-        }
+      .sink {
+        self.onReceiveCompletion("observeMessage finished", $0)
       } receiveValue: { [weak self] result in
         self?.chatMessages = result
       }
@@ -55,7 +50,7 @@ class ChatLogViewModel: ObservableObject {
     let toData = ChatMessage(messageSource: .to, text: chatText, createdAt: Date())
     let recentFromData = RecentMessage(toChatUser: toUser, text: chatText, createdAt: Date())
     let recentToData = RecentMessage(toChatUser: fromUser, text: chatText, createdAt: Date())
-   
+    
     Publishers.Zip4(
       firestoreManager.createDocument(
         data: fromData,
@@ -70,13 +65,8 @@ class ChatLogViewModel: ObservableObject {
         data: recentToData,
         document: .recentMessage(userId: toUser.uid, toId: fromUser.uid))
     )
-    .sink { completion in
-      switch completion {
-      case .finished:
-        debugPrint("sendMessage finished")
-      case let .failure(error):
-        debugPrint(error.localizedDescription)
-      }
+    .sink {
+      self.onReceiveCompletion("sendMessage finished", $0)
     } receiveValue: { _ in
       self.chatText = ""
     }

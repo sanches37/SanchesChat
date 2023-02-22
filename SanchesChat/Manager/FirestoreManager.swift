@@ -87,12 +87,6 @@ struct FirestoreManager {
       .eraseToAnyPublisher()
     }
   
-  func observeDocument<T: Decodable>(_ type: T.Type, document: FirestoreDocument) -> AnyPublisher<T?, Error> {
-    Publishers.DocumentSnapShotPublisher(document: document)
-      .mapError{ $0 as Error }
-      .eraseToAnyPublisher()
-  }
-  
   func observeCollection<T: Decodable>(_ type: T.Type, query: FirestoreCollecion) -> AnyPublisher<[T], Error> {
     Publishers.QuerySnapshotPublisher(query: query)
       .mapError{ $0 as Error }

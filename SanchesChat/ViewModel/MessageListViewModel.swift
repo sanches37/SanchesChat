@@ -48,13 +48,8 @@ class MessageListViewModel: ObservableObject {
             return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
           }
       }
-      .sink { completion in
-        switch completion {
-        case .finished:
-          debugPrint("createUser finished")
-        case .failure(let error):
-          debugPrint(error.localizedDescription)
-        }
+      .sink {
+        self.onReceiveCompletion("createChatUser finished", $0)
       } receiveValue: { _ in
         self.getChatUser()
       }
@@ -66,13 +61,8 @@ class MessageListViewModel: ObservableObject {
       ChatUser.self,
       document: .users(userId: userId)
     )
-    .sink { completion in
-      switch completion {
-      case .finished:
-        debugPrint("getChatUser finished")
-      case let .failure(error):
-        debugPrint(error.localizedDescription)
-      }
+    .sink {
+      self.onReceiveCompletion("getChatUser finished", $0)
     } receiveValue: { result in
       self.chatUser = result
       self.editName = result.name
@@ -83,13 +73,8 @@ class MessageListViewModel: ObservableObject {
   private func observeRecentMessages() {
     firestoreManager.observeCollection(
       RecentMessage.self, query: .fetchRecentMessage(userId: userId))
-    .sink { completion in
-      switch completion {
-      case .finished:
-        debugPrint("observeRecentMessages finished")
-      case let .failure(error):
-        debugPrint(error.localizedDescription)
-      }
+    .sink {
+      self.onReceiveCompletion("observeRecentMessages finished", $0)
     } receiveValue: { [weak self] result in
       self?.resentMessage = result
     }
@@ -113,13 +98,8 @@ class MessageListViewModel: ObservableObject {
             afterDocument: self.userId)
         )
       }
-      .sink { completion in
-        switch completion {
-        case .finished:
-          debugPrint("updateEditProfile finished")
-        case let .failure(error):
-          debugPrint(error.localizedDescription)
-        }
+      .sink {
+        self.onReceiveCompletion("updateEditProfile finished", $0)
       } receiveValue: { _ in
         self.isEditProfile = false
         self.getChatUser()
@@ -146,13 +126,8 @@ class MessageListViewModel: ObservableObject {
   
   func logOut() {
     firebaseAuthManager.firebaseLogOut()
-      .sink { completion in
-        switch completion {
-        case .finished:
-          debugPrint("LogOut finished")
-        case let .failure(error):
-          debugPrint(error.localizedDescription)
-        }
+      .sink {
+        self.onReceiveCompletion("LogOut finished", $0)
       } receiveValue: { _ in }
       .store(in: &cancellable)
   }

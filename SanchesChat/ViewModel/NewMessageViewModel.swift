@@ -19,13 +19,8 @@ class NewMessageViewModel: ObservableObject {
   
   private func getAllUsers() {
     firestoreManager.getCollection(ChatUser.self, collection: .users)
-      .sink { completion in
-        switch completion {
-        case .finished:
-          debugPrint("getAllUsers finished")
-        case let .failure(error):
-          debugPrint(error.localizedDescription)
-        }
+      .sink {
+        self.onReceiveCompletion("getAllUsers finished", $0)
       } receiveValue: { result in
         self.users = result
       }
