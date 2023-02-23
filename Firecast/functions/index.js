@@ -1,6 +1,8 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const request = require('request-promise');
+const events = require("events");
+const async = require("async");
 
 require('dotenv').config();
 
@@ -108,3 +110,36 @@ async function createFirebaseToken(kakaoAccessToken) {
     let user = await updateOrCreateUser(updateParams);
     return admin.auth().createCustomToken(user.uid, { provider: 'KAKAO' });
 }
+
+exports.sendNotifications =
+    functions.region('asia-northeast3').firestore.document('/users/{sendId}/recentMessages/{receiveId}')
+    .onWrite( (snapshot, context) => {
+        const receiver = context.params.receiveId;
+        const afterData = snapshot.after.data()
+        const beforeData = snapshot.before.data()
+
+        admin.auth().getUser()
+        if (beforeData.text === afterData.text) {
+            return new Promise((resolve) => resolve())
+        }
+
+        if (afterData.messageSource === 'from') {
+            return new Promise((resolve) => resolve())
+        }
+
+        const sendNotification =
+            admin.firestore().collection('fcmTokens').doc(receiver).get().then( async (doc) =>{
+                const title = snapshot.after.get('toChatUser.name');
+                const content = snapshot.after.get('text');
+                const payload = {
+                    notification: {
+                        title: title,
+                        body: content,
+                    },
+                    token: doc.get('value')
+                };
+                let response = await admin.messaging().send(payload);
+                console.log(response)
+        })
+        return Promise.all(sendNotification)
+    });

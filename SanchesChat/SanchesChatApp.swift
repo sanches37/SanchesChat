@@ -5,7 +5,6 @@
 //  Created by tae hoon park on 2023/01/18.
 //
 
-import Foundation
 import SwiftUI
 import Firebase
 import KakaoSDKCommon

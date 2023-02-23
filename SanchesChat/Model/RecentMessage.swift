@@ -13,4 +13,5 @@ struct RecentMessage: Codable, Identifiable {
   let toChatUser: ChatUser
   let text: String
   let createdAt: Date
+  let messageSource: MessageSourceType
 }

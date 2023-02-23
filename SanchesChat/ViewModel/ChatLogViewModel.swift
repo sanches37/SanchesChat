@@ -48,8 +48,18 @@ class ChatLogViewModel: ObservableObject {
           let toUser = chatUser else { return }
     let fromData = ChatMessage(messageSource: .from, text: chatText, createdAt: Date())
     let toData = ChatMessage(messageSource: .to, text: chatText, createdAt: Date())
-    let recentFromData = RecentMessage(toChatUser: toUser, text: chatText, createdAt: Date())
-    let recentToData = RecentMessage(toChatUser: fromUser, text: chatText, createdAt: Date())
+    let recentFromData =
+    RecentMessage(
+      toChatUser: toUser,
+      text: chatText,
+      createdAt: Date(),
+      messageSource: .from)
+    let recentToData =
+    RecentMessage(
+      toChatUser: fromUser,
+      text: chatText,
+      createdAt: Date(),
+      messageSource: .to)
     
     Publishers.Zip4(
       firestoreManager.createDocument(
