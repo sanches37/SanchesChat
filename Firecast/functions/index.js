@@ -113,33 +113,34 @@ async function createFirebaseToken(kakaoAccessToken) {
 
 exports.sendNotifications =
     functions.region('asia-northeast3').firestore.document('/users/{sendId}/recentMessages/{receiveId}')
-    .onWrite( (snapshot, context) => {
+    .onWrite( async (snapshot, context) => {
+        const sender = context.params.sendId;
         const receiver = context.params.receiveId;
         const afterData = snapshot.after.data()
         const beforeData = snapshot.before.data()
 
-        admin.auth().getUser()
-        if (beforeData.text === afterData.text) {
+        if (beforeData.text == afterData.text) {
             return new Promise((resolve) => resolve())
         }
 
-        if (afterData.messageSource === 'from') {
+        if (afterData.messageSource == 'from') {
             return new Promise((resolve) => resolve())
         }
 
-        const sendNotification =
-            admin.firestore().collection('fcmTokens').doc(receiver).get().then( async (doc) =>{
-                const title = snapshot.after.get('toChatUser.name');
-                const content = snapshot.after.get('text');
-                const payload = {
-                    notification: {
-                        title: title,
-                        body: content,
-                    },
-                    token: doc.get('value')
-                };
-                let response = await admin.messaging().send(payload);
-                console.log(response)
-        })
-        return Promise.all(sendNotification)
+        if (sender == receiver) {
+            return new Promise((resolve) => resolve())
+        }
+
+        const title = snapshot.after.get('toChatUser.name');
+        const content = snapshot.after.get('text');
+        const payload = {
+            notification: {
+                title: title,
+                body: content
+            },
+            topic: sender
+        };
+        let response = await admin.messaging().send(payload)
+        console.log(response)
+        return Promise.all(response)
     });
