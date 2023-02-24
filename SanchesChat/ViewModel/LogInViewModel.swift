@@ -17,6 +17,10 @@ class LogInViewModel: ObservableObject {
   private var cancellable = Set<AnyCancellable>()
   @Published var nonce = ""
   
+  deinit {
+    print("LogInViewModel deinit")
+  }
+  
   func kakaoLogIn() {
     kakaoAuthManager.getKakaoToken()
       .flatMap {

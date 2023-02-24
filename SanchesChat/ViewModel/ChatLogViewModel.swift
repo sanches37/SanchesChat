@@ -24,6 +24,10 @@ class ChatLogViewModel: ObservableObject {
     observeMessage()
   }
   
+  deinit {
+    print("ChatLogViewModel deinit")
+  }
+  
   private func observeMessage() {
     guard let toId = chatUser?.uid else { return }
     
@@ -35,8 +39,8 @@ class ChatLogViewModel: ObservableObject {
           query: .fetchMessage(fromId: fromId, toId: toId)
         ) ?? Just([]).setFailureType(to: Error.self).eraseToAnyPublisher()
       }
-      .sink {
-        self.onReceiveCompletion("observeMessage finished", $0)
+      .sink { [weak self] completion in
+        self?.onReceiveCompletion("observeMessage finished", completion)
       } receiveValue: { [weak self] result in
         self?.chatMessages = result
       }

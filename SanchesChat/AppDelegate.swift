@@ -37,7 +37,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
   func application(
     _ application: UIApplication,
     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-      print(deviceToken)
       Messaging.messaging().apnsToken = deviceToken
   }
 }
@@ -62,6 +61,10 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
       print("didReceive", userInfo)
       completionHandler()
   }
+  
+  func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+    completionHandler(UIBackgroundFetchResult.newData)
+  }
 }
 
 extension AppDelegate: MessagingDelegate {
@@ -71,7 +74,7 @@ extension AppDelegate: MessagingDelegate {
     
     let dataDict: [String: String] = ["token": fcmToken ?? ""]
     NotificationCenter.default.post(
-      name: Notification.Name("FCMToken"),
+      name: .fcmToken,
       object: nil,
       userInfo: dataDict
     )

@@ -49,7 +49,6 @@ struct KakaoAuthManager {
       guard let kakaoToken = oAuthToken else {
         return .failure(.tokenLookupFailed)
       }
-      print("카카오톡 로그인 성공: \(kakaoToken)")
       return .success(kakaoToken)
     }
 }

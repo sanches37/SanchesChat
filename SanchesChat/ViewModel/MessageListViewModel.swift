@@ -27,6 +27,10 @@ class MessageListViewModel: ObservableObject {
     observeRecentMessages()
   }
   
+  deinit {
+    print("MessageListViewModel deinit")
+  }
+  
   private func checkFirstUser() {
     firebaseAuthManager.currentUser()
       .compactMap { $0 }
@@ -73,8 +77,8 @@ class MessageListViewModel: ObservableObject {
   private func observeRecentMessages() {
     firestoreManager.observeCollection(
       RecentMessage.self, query: .fetchRecentMessage(userId: userId))
-    .sink {
-      self.onReceiveCompletion("observeRecentMessages finished", $0)
+    .sink { [weak self] completion in
+      self?.onReceiveCompletion("observeRecentMessages finished", completion)
     } receiveValue: { [weak self] result in
       self?.resentMessage = result
     }

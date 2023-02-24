@@ -17,6 +17,10 @@ class NewMessageViewModel: ObservableObject {
     getAllUsers()
   }
   
+  deinit {
+    print("NewMessageViewModel deinit")
+  }
+  
   private func getAllUsers() {
     firestoreManager.getCollection(ChatUser.self, collection: .users)
       .sink {
