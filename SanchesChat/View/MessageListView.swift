@@ -168,18 +168,27 @@ struct MessageListView: View {
                   .stroke(.black, lineWidth: 1)
               )
             VStack(alignment: .leading, spacing: 5) {
-              Text(message.toChatUser.name)
-                .fontSize(20, .bold)
-                .foregroundColor(.black)
-              Text(message.text)
-                .fontSize(16)
-                .foregroundColor(.lightGray)
-                .lineLimit(1)
+              HStack {
+                Text(message.toChatUser.name)
+                  .fontSize(20, .bold)
+                  .foregroundColor(.black)
+                Spacer()
+                Text(message.createdAt.toRelativeString())
+                  .fontSize(14, .semibold)
+                  .foregroundColor(.black)
+              }
+              HStack {
+                Text(message.text)
+                  .frame(maxWidth: .infinity, alignment: .leading)
+                  .fontSize(16)
+                  .foregroundColor(.lightGray)
+                  .lineLimit(1)
+                
+                if message.badge != 0 {
+                  badgeCount(count: message.badge)
+                }
+              }
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            Text(message.createdAt.toRelativeString())
-              .fontSize(14, .semibold)
-              .foregroundColor(.black)
           }
           .padding(.bottom)
         }
@@ -187,6 +196,21 @@ struct MessageListView: View {
       .padding([.top, .horizontal])
       .padding(.bottom, 40)
     }
+  }
+  
+  private func badgeCount(count: Int) -> some View {
+    Text("\(count)")
+      .fontSize(14)
+      .foregroundColor(.white)
+      .padding(.horizontal, 6)
+      .background(
+        Group {
+          String(count).count == 1 ? AnyView(Circle().fill(Color.red)) :
+          AnyView(Capsule().fill(Color.red))
+        }
+          .frame(height:22)
+          .frame(minWidth: 22)
+      )
   }
   
   private var newMessageButton: some View {

@@ -22,10 +22,12 @@ class ChatLogViewModel: ObservableObject {
     self.chatUser = chatUser
     self.currentChatUser = currentChatUser
     observeMessage()
+    resetBadgeCount()
   }
   
   deinit {
     print("ChatLogViewModel deinit")
+    resetBadgeCount()
   }
   
   private func observeMessage() {
@@ -96,5 +98,19 @@ class ChatLogViewModel: ObservableObject {
     let rhsIndex = lhsIndex - 1
     let rhs = chatMessages[rhsIndex]
     return !lhs.createdAt.checkIsSameDay(compareTo: rhs.createdAt)
+  }
+  
+  func resetBadgeCount() {
+    guard let fromUser = currentChatUser,
+          let toUser = chatUser else { return }
+    let data = ["badge": 0]
+    
+    firestoreManager.createDocument(
+      data: data,
+      document: .recentMessage(userId: fromUser.uid, toId: toUser.uid))
+    .sink {
+      self.onReceiveCompletion("resetbadgeCount finished", $0)
+    } receiveValue: { _ in }
+      .store(in: &cancellable)
   }
 }

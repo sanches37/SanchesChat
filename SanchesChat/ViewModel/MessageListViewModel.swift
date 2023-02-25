@@ -25,6 +25,7 @@ class MessageListViewModel: ObservableObject {
     self.userId = userId
     checkFirstUser()
     observeRecentMessages()
+    resetBackgroundBadgeCount()
   }
   
   deinit {
@@ -83,6 +84,19 @@ class MessageListViewModel: ObservableObject {
       self?.resentMessage = result
     }
     .store(in: &cancellable)
+  }
+  
+  private func resetBackgroundBadgeCount() {
+    $resentMessage
+      .map { result in
+        result
+          .map { $0.badge }
+          .reduce(0, +)
+      }
+      .sink {
+        UIApplication.shared.applicationIconBadgeNumber = $0
+      }
+      .store(in: &cancellable)
   }
   
   func updateEditProfile() {

@@ -14,4 +14,5 @@ struct RecentMessage: Codable, Identifiable {
   let text: String
   let createdAt: Date
   let messageSource: MessageSourceType
+  var badge: Int = 0
 }
