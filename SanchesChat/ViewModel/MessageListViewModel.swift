@@ -102,18 +102,10 @@ class MessageListViewModel: ObservableObject {
   func updateEditProfile() {
     checkEditImage()
       .flatMap { imageURL in
-        let profileData = ["name": self.editName, "profileImageUrl": imageURL]
-        let documentData = ["toChatUser.name": self.editName, "toChatUser.profileImageUrl": imageURL]
-        return Publishers.Zip(
-          self.firestoreManager.createDocument(
-            data: profileData,
-            document: .users(userId: self.userId)
-          ),
-          self.firestoreManager.getCollectionAfterUpdate(
-            type: documentData as [String : Any],
-            collection: .users,
-            afterCollection: "recentMessages",
-            afterDocument: self.userId)
+        let data = ["name": self.editName, "profileImageUrl": imageURL]
+        return self.firestoreManager.createDocument(
+          data: data,
+          document: .users(userId: self.userId)
         )
       }
       .sink {

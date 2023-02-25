@@ -59,34 +59,7 @@ struct FirestoreManager {
     .mapError { $0 as Error }
     .eraseToAnyPublisher()
   }
-  
-  func getCollectionAfterUpdate(
-    type: [String: Any],
-    collection: FirestoreCollecion,
-    afterCollection: String,
-    afterDocument: String) -> AnyPublisher<Void, Error> {
-      Future<Void, FirestoreError> { promise in
-        collection.path.getDocuments { snapshot, error in
-          if let error = error {
-            promise(.failure(.unknown(description: error.localizedDescription)))
-          }
-          snapshot?.documents.forEach { snapshot in
-            snapshot.reference
-              .collection(afterCollection)
-              .document(afterDocument).getDocument { snapshot, error in
-                if let error = error {
-                  promise(.failure(.unknown(description: error.localizedDescription)))
-                }
-                snapshot?.reference.updateData(type)
-                promise(.success(()))
-              }
-          }
-        }
-      }
-      .mapError { $0 as Error }
-      .eraseToAnyPublisher()
-    }
-  
+
   func observeCollection<T: Decodable>(_ type: T.Type, query: FirestoreCollecion) -> AnyPublisher<[T], Error> {
     Publishers.QuerySnapshotPublisher(query: query)
       .mapError{ $0 as Error }

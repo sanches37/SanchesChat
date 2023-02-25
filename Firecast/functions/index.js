@@ -164,3 +164,22 @@ exports.sendNotifications =
         console.log(response)
         return Promise.all(response)
     });
+
+exports.updateProfile =
+    functions.region('asia-northeast3').firestore.document('/users/{userId}')
+        .onUpdate( async (snapshot, context) => {
+            const userId = context.params.userId;
+            const afterData = snapshot.after.data()
+            let users = await admin.firestore().collection('users').get()
+            console.log(users)
+            const updateProfile = users.forEach(doc => {
+                doc.ref
+                    .collection('recentMessages')
+                    .doc(userId)
+                    .update({
+                        'toChatUser.name': afterData.name,
+                        'toChatUser.profileImageUrl': afterData.profileImageUrl,
+                    })
+            });
+            console.log(updateProfile)
+        });
