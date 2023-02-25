@@ -185,7 +185,7 @@ struct MessageListView: View {
                   .lineLimit(1)
                 
                 if message.badge != 0 {
-                  badgeCount(count: message.badge)
+                  badgeCount(count: message.badge ?? 0)
                 }
               }
             }

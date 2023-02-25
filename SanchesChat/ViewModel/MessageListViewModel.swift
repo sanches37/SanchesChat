@@ -90,7 +90,7 @@ class MessageListViewModel: ObservableObject {
     $resentMessage
       .map { result in
         result
-          .map { $0.badge }
+          .compactMap { $0.badge }
           .reduce(0, +)
       }
       .sink {
