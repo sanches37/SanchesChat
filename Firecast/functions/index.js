@@ -131,12 +131,32 @@ exports.sendNotifications =
             return new Promise((resolve) => resolve())
         }
 
+        const increment = admin.firestore.FieldValue.increment(1)
+        let updateBadge = await snapshot.after.ref.update({ badge: increment })
+        console.log(updateBadge)
+        let recentMessages =
+            await admin.firestore()
+                .collection('users')
+                .doc(sender)
+                .collection('recentMessages')
+                .get()
+        let badge = 0;
+        await recentMessages.forEach( doc =>{
+            badge += doc.data().badge;
+        })
         const title = snapshot.after.get('toChatUser.name');
         const content = snapshot.after.get('text');
         const payload = {
             notification: {
                 title: title,
                 body: content
+            },
+            apns: {
+                payload: {
+                    aps: {
+                        badge: badge
+                    }
+                }
             },
             topic: sender
         };
