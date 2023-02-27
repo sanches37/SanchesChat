@@ -41,10 +41,10 @@
 		4D8D74692990B7F500CC3F46 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D74682990B7F500CC3F46 /* Color.swift */; };
 		4DA48EC629A25170005DE5CC /* ChatLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48EC529A25170005DE5CC /* ChatLogViewModel.swift */; };
 		4DA48EC829A25F61005DE5CC /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48EC729A25F61005DE5CC /* ChatMessage.swift */; };
-		4DA48ECD29A37534005DE5CC /* Extension + Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48ECC29A37534005DE5CC /* Extension + Date.swift */; };
+		4DA48ECD29A37534005DE5CC /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48ECC29A37534005DE5CC /* Date.swift */; };
 		4DA48ED129A3A52C005DE5CC /* KeyboardPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48ED029A3A52C005DE5CC /* KeyboardPublisher.swift */; };
 		4DA48ED329A3AE40005DE5CC /* RecentMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48ED229A3AE40005DE5CC /* RecentMessage.swift */; };
-		4DA48ED729A6119F005DE5CC /* Extension + ObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48ED629A6119F005DE5CC /* Extension + ObservableObject.swift */; };
+		4DA48ED729A6119F005DE5CC /* ObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48ED629A6119F005DE5CC /* ObservableObject.swift */; };
 		4DA48EDA29A62818005DE5CC /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4DA48ED929A62818005DE5CC /* FirebaseAuth */; };
 		4DA48EDC29A62818005DE5CC /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4DA48EDB29A62818005DE5CC /* FirebaseFirestore */; };
 		4DA48EDE29A62818005DE5CC /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4DA48EDD29A62818005DE5CC /* FirebaseFirestoreSwift */; };
@@ -53,7 +53,7 @@
 		4DA48EE429A62818005DE5CC /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 4DA48EE329A62818005DE5CC /* FirebaseStorage */; };
 		4DA48EE629A63249005DE5CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48EE529A63249005DE5CC /* AppDelegate.swift */; };
 		4DA48EE829A7D35B005DE5CC /* FirebaseMessagingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48EE729A7D35B005DE5CC /* FirebaseMessagingManager.swift */; };
-		4DA48EEC29A8D00B005DE5CC /* Extension + Notification.Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48EEB29A8D00B005DE5CC /* Extension + Notification.Name.swift */; };
+		4DA48EEC29A8D00B005DE5CC /* Notification.Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA48EEB29A8D00B005DE5CC /* Notification.Name.swift */; };
 		4DCA75D8299743B4003ECE6C /* QuerySnapshotPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA75D7299743B4003ECE6C /* QuerySnapshotPublisher.swift */; };
 		4DCA75DA299745CD003ECE6C /* FirestoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA75D9299745CC003ECE6C /* FirestoreError.swift */; };
 		4DCA75DE29993339003ECE6C /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA75DD29993339003ECE6C /* FirestoreManager.swift */; };
@@ -95,13 +95,13 @@
 		4D8D74682990B7F500CC3F46 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		4DA48EC529A25170005DE5CC /* ChatLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogViewModel.swift; sourceTree = "<group>"; };
 		4DA48EC729A25F61005DE5CC /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
-		4DA48ECC29A37534005DE5CC /* Extension + Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + Date.swift"; sourceTree = "<group>"; };
+		4DA48ECC29A37534005DE5CC /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		4DA48ED029A3A52C005DE5CC /* KeyboardPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardPublisher.swift; sourceTree = "<group>"; };
 		4DA48ED229A3AE40005DE5CC /* RecentMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMessage.swift; sourceTree = "<group>"; };
-		4DA48ED629A6119F005DE5CC /* Extension + ObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + ObservableObject.swift"; sourceTree = "<group>"; };
+		4DA48ED629A6119F005DE5CC /* ObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableObject.swift; sourceTree = "<group>"; };
 		4DA48EE529A63249005DE5CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4DA48EE729A7D35B005DE5CC /* FirebaseMessagingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMessagingManager.swift; sourceTree = "<group>"; };
-		4DA48EEB29A8D00B005DE5CC /* Extension + Notification.Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + Notification.Name.swift"; sourceTree = "<group>"; };
+		4DA48EEB29A8D00B005DE5CC /* Notification.Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.Name.swift; sourceTree = "<group>"; };
 		4DCA75D7299743B4003ECE6C /* QuerySnapshotPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuerySnapshotPublisher.swift; sourceTree = "<group>"; };
 		4DCA75D9299745CC003ECE6C /* FirestoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreError.swift; sourceTree = "<group>"; };
 		4DCA75DD29993339003ECE6C /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
@@ -130,6 +130,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D47FEB829AC688700EBB956 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				4D8D742A2977D56F00CC3F46 /* SanchesChatApp.swift */,
+				4DA48EE529A63249005DE5CC /* AppDelegate.swift */,
+				4D72BEEA299B927D009DD66D /* AppState.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
 		4D72BEF1299CE254009DD66D /* CommonView */ = {
 			isa = PBXGroup;
 			children = (
@@ -177,10 +187,7 @@
 				4D8D74502977E99D00CC3F46 /* Error */,
 				4DA48ECB29A3750B005DE5CC /* Extension */,
 				4DCA75D62997438F003ECE6C /* Publisher */,
-				4D8D742A2977D56F00CC3F46 /* SanchesChatApp.swift */,
-				4D5D103229A1085200138F43 /* ContentView.swift */,
-				4D72BEEA299B927D009DD66D /* AppState.swift */,
-				4DA48EE529A63249005DE5CC /* AppDelegate.swift */,
+				4D47FEB829AC688700EBB956 /* Application */,
 				4D8D742E2977D57200CC3F46 /* Assets.xcassets */,
 				4D8D744C2977E5AD00CC3F46 /* Info.plist */,
 				4D8D74382977DA4E00CC3F46 /* GoogleService-Info.plist */,
@@ -226,6 +233,7 @@
 		4D8D74532977F2A200CC3F46 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4D5D103229A1085200138F43 /* ContentView.swift */,
 				4D8D742C2977D56F00CC3F46 /* LoginView.swift */,
 				4DCA75E5299AB188003ECE6C /* MessageListView.swift */,
 				4D469F2D299F95EE0010BEC9 /* NewMessageView.swift */,
@@ -250,9 +258,9 @@
 		4DA48ECB29A3750B005DE5CC /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				4DA48ECC29A37534005DE5CC /* Extension + Date.swift */,
-				4DA48ED629A6119F005DE5CC /* Extension + ObservableObject.swift */,
-				4DA48EEB29A8D00B005DE5CC /* Extension + Notification.Name.swift */,
+				4DA48ECC29A37534005DE5CC /* Date.swift */,
+				4DA48ED629A6119F005DE5CC /* ObservableObject.swift */,
+				4DA48EEB29A8D00B005DE5CC /* Notification.Name.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -383,7 +391,7 @@
 				4D469F2C299E49A60010BEC9 /* FirebaseStorageError.swift in Sources */,
 				4D8D74692990B7F500CC3F46 /* Color.swift in Sources */,
 				4D469F30299F999E0010BEC9 /* NewMessageViewModel.swift in Sources */,
-				4DA48ED729A6119F005DE5CC /* Extension + ObservableObject.swift in Sources */,
+				4DA48ED729A6119F005DE5CC /* ObservableObject.swift in Sources */,
 				4DCA75E42999534C003ECE6C /* ChatUser.swift in Sources */,
 				4D8D745A29780CD300CC3F46 /* FirebaseAuthError.swift in Sources */,
 				4DA48EC829A25F61005DE5CC /* ChatMessage.swift in Sources */,
@@ -392,10 +400,10 @@
 				4D8D74522977E9B600CC3F46 /* KakaoAuthError.swift in Sources */,
 				4DA48EE829A7D35B005DE5CC /* FirebaseMessagingManager.swift in Sources */,
 				4D469F2A299E475C0010BEC9 /* FirebaseStorageManager.swift in Sources */,
-				4DA48EEC29A8D00B005DE5CC /* Extension + Notification.Name.swift in Sources */,
+				4DA48EEC29A8D00B005DE5CC /* Notification.Name.swift in Sources */,
 				4D8D742B2977D56F00CC3F46 /* SanchesChatApp.swift in Sources */,
 				4D469F2E299F95EE0010BEC9 /* NewMessageView.swift in Sources */,
-				4DA48ECD29A37534005DE5CC /* Extension + Date.swift in Sources */,
+				4DA48ECD29A37534005DE5CC /* Date.swift in Sources */,
 				4D8D74672990B6A000CC3F46 /* FontSize.swift in Sources */,
 				4D8D74652979444000CC3F46 /* AppleAuthManager.swift in Sources */,
 				4D5D103529A154F600138F43 /* ChatLogView.swift in Sources */,

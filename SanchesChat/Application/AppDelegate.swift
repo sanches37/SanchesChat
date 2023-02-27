@@ -49,7 +49,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
       let userInfo = notification.request.content.userInfo
       print("willPresent", userInfo)
-      completionHandler([.banner, .sound, .badge])
+      completionHandler([])
   }
   
   //push message를 받았을 때
